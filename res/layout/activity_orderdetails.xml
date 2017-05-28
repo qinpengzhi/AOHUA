@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:layout_alignParentTop="true"
+    android:id="@+id/activityorderdeatal_head"
+    android:background="@drawable/bottom_border">
+    <ImageView android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:id="@+id/orderdetails_back"
+        android:src="@drawable/ic_action_goleft"/>
+    <TextView android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:text="订单详情(销售订单)"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textColor="@color/black"/>
+</LinearLayout>  
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:layout_below="@+id/activityorderdeatal_head">
+ 
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:orientation="vertical">
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="6dp">
+        <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:textSize="20dp"
+	        android:text="制单日期"/>
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_marginLeft="30dp"
+	        android:textSize="20dp"
+	        android:textColor="@color/black"
+	        android:layout_height="match_parent"
+	        android:id="@+id/orderdetails_WriteDate"
+	        android:text=""/>
+    </LinearLayout>
+    <View android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/darkgray"/>
+    
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+         android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+        <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:textSize="20dp"
+	        android:text="单号"/>
+    	<TextView android:layout_width="wrap_content"
+        	android:layout_height="match_parent"
+        	android:layout_marginLeft="70dp"
+        	android:textSize="20dp"
+        	android:textColor="@color/black"
+        	android:id="@+id/orderdetails_OrderCode"/>
+    </LinearLayout>
+    <View android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/darkgray"/>
+    
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+         android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+        <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:textSize="20dp"
+	        android:text="客戶"/>
+        <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:layout_marginLeft="70dp"
+	        android:textSize="20dp"
+	        android:textColor="@color/black"
+	        android:id="@+id/orderdetails_CustName"/>    
+   </LinearLayout>
+    <View android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/darkgray"/>     
+    
+     <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+         android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+        <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:textSize="20dp"
+	        android:text="交货日期"/>
+    	<TextView android:layout_width="wrap_content"
+        	android:layout_height="match_parent"
+        	android:layout_marginLeft="30dp"
+        	android:textSize="20dp"
+        	android:textColor="@color/black"
+        	android:id="@+id/orderdetails_DeliveryDate"/>
+	</LinearLayout>
+    <View android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/darkgray"/>  
+    
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+         android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+        <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:textSize="20dp"
+	        android:text="签订日期"/>
+    	<TextView android:layout_width="wrap_content"
+        	android:layout_height="match_parent"
+        	android:layout_marginLeft="30dp"
+        	android:textSize="20dp"
+        	android:textColor="@color/black"
+        	android:id="@+id/orderdetails_SignDate"/>
+    </LinearLayout>
+    <View android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/darkgray"/> 
+    
+     <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+         android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+        <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:textSize="20dp"
+	        android:text="所属部门"/>
+    	<TextView android:layout_width="wrap_content"
+        	android:layout_height="match_parent"
+        	android:layout_marginLeft="30dp"
+        	android:textSize="20dp"
+        	android:textColor="@color/black"
+        	android:id="@+id/orderdetails_DeptName"/>
+	 </LinearLayout>
+    <View android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/darkgray"/> 
+    
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+         android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+        <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:textSize="20dp"
+	        android:text="交货地点"/>
+    	<TextView android:layout_width="wrap_content"
+        	android:layout_height="match_parent"
+        	android:layout_marginLeft="30dp"
+        	android:textSize="20dp"
+        	android:textColor="@color/black"
+        	android:id="@+id/orderdetails_DeliveryAddr"
+        	android:text=""/>
+    </LinearLayout>
+    <View android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/darkgray"/> 
+        
+   <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+         android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+        <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:textSize="20dp"
+	        android:text="运输方式"/> 
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:layout_marginLeft="30dp"
+	        android:textSize="20dp"
+	        android:textColor="@color/black"
+	        android:id="@+id/orderdetails_TransportName"/>
+    </LinearLayout>
+    <View android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/darkgray"/> 
+        
+   <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+         android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+        <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:textSize="20dp"
+	        android:text="结算方式"/>  
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:layout_marginLeft="30dp"
+	        android:textSize="20dp"
+	        android:textColor="@color/black"
+	        android:id="@+id/orderdetails_SettleName"/>
+	</LinearLayout>
+    <View android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/darkgray"/> 
+        
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+         android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+        <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:textSize="20dp"
+	        android:text="运输费用"/>  
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:layout_marginLeft="30dp"
+	        android:textSize="20dp"
+	        android:textColor="@color/black"
+	        android:id="@+id/orderdetails_Freight"/>
+    </LinearLayout>
+    <View android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/darkgray"/> 
+        
+     <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+         android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+        <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:textSize="20dp"
+	        android:text="签订地点"/>  
+	     <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:layout_marginLeft="30dp"
+	        android:textSize="20dp"
+	        android:textColor="@color/black"
+	        android:id="@+id/orderdetails_SignAddr"
+	        android:text=""/>	 
+	</LinearLayout>
+    <View android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/darkgray"/> 
+        
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+         android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+        <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:textSize="20dp"
+	        android:text="合同号"/>  
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:layout_marginLeft="50dp"
+	        android:textSize="20dp"
+	        android:textColor="@color/black"
+	        android:id="@+id/orderdetails_ContractCode"/>
+	</LinearLayout>
+    <View android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/darkgray"/> 
+    
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+         android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+        <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:textSize="20dp"
+	        android:text="收款期(天)"/>  
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:layout_marginLeft="20dp"
+	        android:textSize="20dp"
+	        android:textColor="@color/black"
+	        android:id="@+id/orderdetails_ReceDays"/>
+	</LinearLayout>
+    <View android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/darkgray"/> 
+        
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+         android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+        <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:textSize="20dp"
+	        android:text="业务员"/>         
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:layout_marginLeft="50dp"
+	        android:textSize="20dp"
+	        android:textColor="@color/black"
+	        android:id="@+id/orderdetails_SellerName"/>
+	 </LinearLayout>
+	 
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+         android:paddingTop="6dp"
+        android:paddingBottom="6dp">
+        <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#434343"
+            android:textSize="20dp"
+            android:text="订单明细"
+            android:layout_marginBottom="5dp"/>
+        <View android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/darkgray"/> 
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="-20dp"
+            android:orientation="horizontal">
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                  android:textSize="20dp"
+                  android:gravity="center"
+                android:text="物料名称"/>
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                  android:textSize="20dp"
+                   android:gravity="center"
+                android:text="数量"/>
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                 android:gravity="center"
+                android:textColor="@color/black"
+                  android:textSize="20dp"
+                android:text="金额"/>
+        </LinearLayout>
+        <LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:orientation="vertical" >
+	        <ListView android:id="@+id/orderdetail_goodslist"
+		        android:layout_width="match_parent"
+		        android:layout_height="0dp"        
+		        android:layout_weight="1"/> 
+    	</LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+</ScrollView> 
+
+</RelativeLayout>
