@@ -12,12 +12,14 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -42,7 +44,7 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 	private ArrayAdapter<String> arrayAdapter;
 	private Calendar calendar;//用来装日期的
 	private DatePickerDialog dialog;
-	private List<Integer> departMentCode;//这个是用来存储部门的id的
+	private Integer departMentCode;//这个是用来存储部门的id的
 	private AlertDialog alert;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -135,7 +137,7 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 			alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new OnClickListener(){
 				@Override
 				public void onClick(DialogInterface dialogIn, int which) {
-					 ((TextView)findViewById(R.id.addorder_SignAddr)).setText(edit_text.getText().toString().trim());;
+					 ((TextView)findViewById(R.id.addorder_SignAddr)).setText(edit_text.getText().toString().trim());
 				}
 			});
 			alert.show();
@@ -184,7 +186,7 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 								//如果成功
 								Message message=Message.obtain();
 								message.what=1;
-								message.obj=EntityUtils.toString(httpResponse.getEntity());
+								message.obj=EntityUtils.toString(httpResponse.getEntity(),"utf-8");
 								handler1.sendMessage(message);
 							}else{
 								//如果网络连接失败
@@ -209,13 +211,29 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 				Toast.makeText(AddorderActivity.this,"网络连接失败！", Toast.LENGTH_LONG).show();
 			}else{
 				try {
-					JSONObject json = new JSONObject( msg.obj.toString());
-					String[] department;
+					List<Integer> codelist=new ArrayList<Integer>();
+					List<String> list=new ArrayList<String>();
+					JSONArray json = new JSONArray( msg.obj.toString());
 					for(int i=0;i<json.length();i++){
-						//departMentCode.add(json.)
+						JSONObject temp = (JSONObject) json.get(i);  
+					//	departMentCode.add((Integer) temp.get("DeptID"));
+						list.add(temp.getString("DeptName")); 
+						codelist.add(temp.getInt("DeptID"));
 					}
-					
-					
+					Builder builder =new AlertDialog.Builder(AddorderActivity.this);
+					final String[] items=list.toArray(new String[list.size()]);
+					final Integer[] codeitems=codelist.toArray(new Integer[codelist.size()]);
+					builder.setItems(items, new DialogInterface.OnClickListener()  
+				       {  
+				           @Override  
+				           public void onClick(DialogInterface dialog, int which)  
+				           {  
+				               ((TextView)findViewById(R.id.addorder_DeptName)).setText(items[which].toString().trim());
+				               departMentCode=codeitems[which];
+				               //Toast.makeText(AddorderActivity.this, "选择的部门为：" + departMentCode, Toast.LENGTH_SHORT).show();
+				           }  
+				       });  
+					builder.create().show();
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}

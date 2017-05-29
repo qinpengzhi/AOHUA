@@ -75,10 +75,10 @@ public class LoginActivity extends Activity {
 						HttpClient httpClient=new DefaultHttpClient();
 						HttpPost httpRequest=new HttpPost(target);
 						List<NameValuePair> params=new ArrayList<NameValuePair>();
-						params.add(new BasicNameValuePair("user", "qpz"));
-						params.add(new BasicNameValuePair("pwd", "123"));
+						params.add(new BasicNameValuePair("user", username));
+						params.add(new BasicNameValuePair("pwd", password));
 						try{
-							httpRequest.setEntity(new UrlEncodedFormEntity(params,"GBK"));
+							httpRequest.setEntity(new UrlEncodedFormEntity(params,"utf-8"));
 							HttpResponse httpResponse=httpClient.execute(httpRequest);
 							if(httpResponse.getStatusLine().getStatusCode()==HttpStatus.SC_OK){
 								//如果成功
