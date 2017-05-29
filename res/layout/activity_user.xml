@@ -1,8 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent">
     
-
-</LinearLayout>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/blue"
+    android:id="@+id/user_gudinghead"
+    android:layout_alignParentTop="true">
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"     
+        android:src="@drawable/ic_action_gear" /> 
+</RelativeLayout>
+<ScrollView android:layout_width="match_parent"
+    android:layout_below="@+id/user_gudinghead"
+    android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@color/blue"
+        android:paddingTop="50dp"
+        android:paddingLeft="30dp"
+        android:paddingBottom="10dp"
+        android:orientation="horizontal">
+        <com.aohua.tool.XCRoundImageView
+            android:layout_width="100dp"   
+        	android:layout_height="100dp"
+        	android:id="@+id/user_headimg"
+        	android:src="@drawable/female"
+            />
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="30dp"
+            android:paddingLeft="10dp"
+            android:orientation="vertical">
+            <TextView android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="覃鹏志"/>
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                android:layout_marginTop="5dp"
+                android:text="个人信息>"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
+</RelativeLayout>
