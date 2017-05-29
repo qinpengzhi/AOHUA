@@ -44,7 +44,9 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 	private ArrayAdapter<String> arrayAdapter;
 	private Calendar calendar;//用来装日期的
 	private DatePickerDialog dialog;
-	private Integer departMentCode;//这个是用来存储部门的id的
+	private Integer DeptID;//这个是用来存储部门的id的
+	private Integer TransportID;//这个是用来存储运输方式id的
+	private Integer SettleID;//这个是用来存储结算方式的id的
 	private AlertDialog alert;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +67,12 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 		this.findViewById(R.id.relative_ContractCode).setOnTouchListener(this);
 		//ReceDays填写收款天
 		this.findViewById(R.id.relative_ReceDays).setOnTouchListener(this);
-		//DeptName弹出所属部门
+		//DeptName弹出所属部门选择列表
 		this.findViewById(R.id.relative_DeptName).setOnTouchListener(this);
+		//TransportName弹出运输方式选择列表
+		this.findViewById(R.id.relative_TransportName).setOnTouchListener(this);
+		//SettleName弹出结算方式选择列表
+		this.findViewById(R.id.relative_SettleName).setOnTouchListener(this);
 		
 		//这是对客户的自动提示框
 //        autotext =(AutoCompleteTextView) findViewById(R.id.addorder_CustName);
@@ -199,7 +205,57 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 						}
 					};
 				}.start();
-		}
+		}else if(v.getId()==R.id.relative_TransportName){
+			new Thread(){
+				public void run() {
+					String target="http://10.132.23.147:8080/AOHUAServlet/gettransportmode";
+					HttpClient httpClient=new DefaultHttpClient();
+					HttpPost httpRequest=new HttpPost(target);
+					try{
+						HttpResponse httpResponse=httpClient.execute(httpRequest);
+						if(httpResponse.getStatusLine().getStatusCode()==HttpStatus.SC_OK){
+							//如果成功
+							Message message=Message.obtain();
+							message.what=1;
+							message.obj=EntityUtils.toString(httpResponse.getEntity(),"utf-8");
+							handler2.sendMessage(message);
+						}else{
+							//如果网络连接失败
+							Message message=Message.obtain();
+							message.what=0;
+							handler2.sendMessage(message);
+						}
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				};
+			}.start();
+		}else if(v.getId()==R.id.relative_SettleName){
+			new Thread(){
+				public void run() {
+					String target="http://10.132.23.147:8080/AOHUAServlet/getsettlemode";
+					HttpClient httpClient=new DefaultHttpClient();
+					HttpPost httpRequest=new HttpPost(target);
+					try{
+						HttpResponse httpResponse=httpClient.execute(httpRequest);
+						if(httpResponse.getStatusLine().getStatusCode()==HttpStatus.SC_OK){
+							//如果成功
+							Message message=Message.obtain();
+							message.what=1;
+							message.obj=EntityUtils.toString(httpResponse.getEntity(),"utf-8");
+							handler3.sendMessage(message);
+						}else{
+							//如果网络连接失败
+							Message message=Message.obtain();
+							message.what=0;
+							handler3.sendMessage(message);
+						}
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				};
+			}.start();
+	}
 
 		return false;
 	}
@@ -229,8 +285,8 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 				           public void onClick(DialogInterface dialog, int which)  
 				           {  
 				               ((TextView)findViewById(R.id.addorder_DeptName)).setText(items[which].toString().trim());
-				               departMentCode=codeitems[which];
-				               //Toast.makeText(AddorderActivity.this, "选择的部门为：" + departMentCode, Toast.LENGTH_SHORT).show();
+				               DeptID=codeitems[which];
+				               Toast.makeText(AddorderActivity.this, "选择的部门id为：" + DeptID, Toast.LENGTH_SHORT).show();
 				           }  
 				       });  
 					builder.create().show();
@@ -241,4 +297,80 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 			super.handleMessage(msg);
 		}
 	};
+	//运输方式选择框
+	private Handler handler2=new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			if(msg.what==0){
+				Toast.makeText(AddorderActivity.this,"网络连接失败！", Toast.LENGTH_LONG).show();
+			}else{
+				try {
+					List<Integer> codelist=new ArrayList<Integer>();
+					List<String> list=new ArrayList<String>();
+					JSONArray json = new JSONArray( msg.obj.toString());
+					for(int i=0;i<json.length();i++){
+						JSONObject temp = (JSONObject) json.get(i);  
+					//	departMentCode.add((Integer) temp.get("DeptID"));
+						list.add(temp.getString("TransportName")); 
+						codelist.add(temp.getInt("TransportID"));
+					}
+					Builder builder =new AlertDialog.Builder(AddorderActivity.this);
+					final String[] items=list.toArray(new String[list.size()]);
+					final Integer[] codeitems=codelist.toArray(new Integer[codelist.size()]);
+					builder.setItems(items, new DialogInterface.OnClickListener()  
+				       {  
+				           @Override  
+				           public void onClick(DialogInterface dialog, int which)  
+				           {  
+				               ((TextView)findViewById(R.id.addorder_TransportName)).setText(items[which].toString().trim());
+				               TransportID=codeitems[which];
+				               Toast.makeText(AddorderActivity.this, "选择的运输方式id为：" + TransportID, Toast.LENGTH_SHORT).show();
+				           }  
+				       });  
+					builder.create().show();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+			super.handleMessage(msg);
+		}
+	};
+	//结算方式选择框
+		private Handler handler3=new Handler(){
+			@Override
+			public void handleMessage(Message msg) {
+				if(msg.what==0){
+					Toast.makeText(AddorderActivity.this,"网络连接失败！", Toast.LENGTH_LONG).show();
+				}else{
+					try {
+						List<Integer> codelist=new ArrayList<Integer>();
+						List<String> list=new ArrayList<String>();
+						JSONArray json = new JSONArray( msg.obj.toString());
+						for(int i=0;i<json.length();i++){
+							JSONObject temp = (JSONObject) json.get(i);  
+						//	departMentCode.add((Integer) temp.get("DeptID"));
+							list.add(temp.getString("SettleName")); 
+							codelist.add(temp.getInt("SettleID"));
+						}
+						Builder builder =new AlertDialog.Builder(AddorderActivity.this);
+						final String[] items=list.toArray(new String[list.size()]);
+						final Integer[] codeitems=codelist.toArray(new Integer[codelist.size()]);
+						builder.setItems(items, new DialogInterface.OnClickListener()  
+					       {  
+					           @Override  
+					           public void onClick(DialogInterface dialog, int which)  
+					           {  
+					               ((TextView)findViewById(R.id.addorder_SettleName)).setText(items[which].toString().trim());
+					               SettleID=codeitems[which];
+					               Toast.makeText(AddorderActivity.this, "选择的结算方式id为：" + SettleID, Toast.LENGTH_SHORT).show();
+					           }  
+					       });  
+						builder.create().show();
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+				super.handleMessage(msg);
+			}
+		};
 }
