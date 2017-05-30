@@ -13,6 +13,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
+        android:id="@+id/user_setting_img"
         android:layout_margin="10dp"     
         android:src="@drawable/ic_action_gear" /> 
 </RelativeLayout>
@@ -48,6 +49,7 @@
                 android:textColor="@color/white"
                 android:textSize="16dp"
                 android:layout_marginTop="5dp"
+                android:id="@+id/user_message_details"
                 android:text="个人信息>"/>
         </LinearLayout>
     </LinearLayout>
