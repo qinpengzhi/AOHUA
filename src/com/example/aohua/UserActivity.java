@@ -30,7 +30,9 @@ public class UserActivity extends Activity implements OnClickListener{
 			startActivity(intent);
 		}//进入的是个人信息详情页面
 		else if(v.getId()==R.id.user_message_details){
-			
+			Intent intent=new Intent();
+			intent.setClass(UserActivity.this, UserdetailsActivity.class);
+			startActivity(intent);
 		}
 	}
 }
