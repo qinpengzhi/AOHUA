@@ -31,66 +31,66 @@ import android.os.Message;
 import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AddorderActivity extends Activity implements OnTouchListener{
-	private AutoCompleteTextView autotext;
-	private ArrayAdapter<String> arrayAdapter;
+public class AddorderActivity extends Activity implements OnTouchListener, android.view.View.OnClickListener{
 	private String parenturl="http://10.132.23.147:8080/AOHUAServlet/";
 	private Calendar calendar;//用来装日期的
-	private DatePickerDialog dialog;
 	private Integer DeptID;//这个是用来存储部门的id的
 	private Integer TransportID;//这个是用来存储运输方式id的
 	private Integer SettleID;//这个是用来存储结算方式的id的
 	private Integer CustID;//这个是用来存储选择的客户的id的
 	private Integer SellerID;//这个是用来存储业务员的id的
 	private AlertDialog alert;
+	private DatePickerDialog dialog;
+	private TextView addorder_go_adddetails;//进入添加明细界面的按钮
+	private JSONArray orderdetails_jsonarray;//存储订单明细的json串
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_addorder);
 		//弹出交货日期
-		this.findViewById(R.id.relative_DeliveryDate).setOnTouchListener(this);
+		this.findViewById(R.id.addorder_DeliveryDate).setOnTouchListener(this);
 		//弹出签订日期
-		this.findViewById(R.id.relative_SignDate).setOnTouchListener(this);
+		this.findViewById(R.id.addorder_SignDate).setOnTouchListener(this);
 		//填写交货地点
-		this.findViewById(R.id.relative_DeliveryAddr).setOnTouchListener(this);
+		this.findViewById(R.id.addorder_DeliveryAddr).setOnTouchListener(this);
 		//填写运输费用
-		this.findViewById(R.id.relative_Freight).setOnTouchListener(this);
+		this.findViewById(R.id.addorder_Freight).setOnTouchListener(this);
 		//SignAddr填写签订地址
-		this.findViewById(R.id.relative_SignAddr).setOnTouchListener(this);
+		this.findViewById(R.id.addorder_SignAddr).setOnTouchListener(this);
 		//ContractCode填写合同号
-		this.findViewById(R.id.relative_ContractCode).setOnTouchListener(this);
+		this.findViewById(R.id.addorder_ContractCode).setOnTouchListener(this);
 		//ReceDays填写收款天
-		this.findViewById(R.id.relative_ReceDays).setOnTouchListener(this);
+		this.findViewById(R.id.addorder_ReceDays).setOnTouchListener(this);
 		//DeptName弹出所属部门选择列表
-		this.findViewById(R.id.relative_DeptName).setOnTouchListener(this);
+		this.findViewById(R.id.addorder_DeptName).setOnTouchListener(this);
 		//TransportName弹出运输方式选择列表
-		this.findViewById(R.id.relative_TransportName).setOnTouchListener(this);
+		this.findViewById(R.id.addorder_TransportName).setOnTouchListener(this);
 		//SettleName弹出结算方式选择列表
-		this.findViewById(R.id.relative_SettleName).setOnTouchListener(this);
+		this.findViewById(R.id.addorder_SettleName).setOnTouchListener(this);
 		//CustName弹出客户选择列表
-		this.findViewById(R.id.relative_CustName).setOnTouchListener(this);
+		this.findViewById(R.id.addorder_CustName).setOnTouchListener(this);
 		//SellerName弹出业务员选择列表
-		this.findViewById(R.id.relative_SellerName).setOnTouchListener(this);	
-		
-		//这是对客户的自动提示框
-//        autotext =(AutoCompleteTextView) findViewById(R.id.addorder_CustName);
-//        String [] arr={"浙江工业研究院","杭州科技","浙江大学","杭州有限公司"};
-//        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,arr);
-//        autotext.setAdapter(arrayAdapter);
+		this.findViewById(R.id.addorder_SellerName).setOnTouchListener(this);	
+	
+		addorder_go_adddetails=(TextView) findViewById(R.id.addorder_go_adddetails);
+		addorder_go_adddetails.setOnClickListener(this);
 	}
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		//这边是选择时间的
-		if(v.getId()==R.id.relative_DeliveryDate){
+		if(v.getId()==R.id.addorder_DeliveryDate){
 			calendar=Calendar.getInstance();
 			dialog=new DatePickerDialog(AddorderActivity.this,new DatePickerDialog.OnDateSetListener() {
 				@Override
@@ -99,7 +99,7 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 				}
 			}, calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 			dialog.show();
-		}else if(v.getId()==R.id.relative_SignDate){
+		}else if(v.getId()==R.id.addorder_SignDate){
 			calendar=Calendar.getInstance();
 			dialog=new DatePickerDialog(AddorderActivity.this,new DatePickerDialog.OnDateSetListener() {
 				public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -107,7 +107,7 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 				}
 			}, calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 			dialog.show();
-		}else if(v.getId()==R.id.relative_DeliveryAddr){
+		}else if(v.getId()==R.id.addorder_DeliveryAddr){
 			alert=new AlertDialog.Builder(AddorderActivity.this).create();
 			final EditText edit_text=new EditText(this);
 			alert.setView(edit_text);
@@ -118,11 +118,12 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 			alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new OnClickListener(){
 				@Override
 				public void onClick(DialogInterface dialogIn, int which) {
-					 ((TextView)findViewById(R.id.addorder_DeliveryAddr)).setText(edit_text.getText().toString().trim());;
+					 if(!edit_text.getText().toString().trim().equals(""))
+						 ((TextView)findViewById(R.id.addorder_DeliveryAddr)).setText(edit_text.getText().toString().trim());;
 				}
 			});
 			alert.show();
-		}else if(v.getId()==R.id.relative_Freight){
+		}else if(v.getId()==R.id.addorder_Freight){
 			alert=new AlertDialog.Builder(AddorderActivity.this).create();
 			final EditText edit_text=new EditText(this);
 			//只能输入数字和小数点
@@ -135,11 +136,12 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 			alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new OnClickListener(){
 				@Override
 				public void onClick(DialogInterface dialogIn, int which) {
-					 ((TextView)findViewById(R.id.addorder_Freight)).setText(edit_text.getText().toString().trim());;
+					 if(!edit_text.getText().toString().trim().equals(""))
+						 ((TextView)findViewById(R.id.addorder_Freight)).setText(edit_text.getText().toString().trim());;
 				}
 			});
 			alert.show();
-		}else if(v.getId()==R.id.relative_SignAddr){
+		}else if(v.getId()==R.id.addorder_SignAddr){
 			alert=new AlertDialog.Builder(AddorderActivity.this).create();
 			final EditText edit_text=new EditText(this);
 			alert.setView(edit_text);
@@ -150,11 +152,12 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 			alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new OnClickListener(){
 				@Override
 				public void onClick(DialogInterface dialogIn, int which) {
-					 ((TextView)findViewById(R.id.addorder_SignAddr)).setText(edit_text.getText().toString().trim());
+					 if(!edit_text.getText().toString().trim().equals(""))
+						 ((TextView)findViewById(R.id.addorder_SignAddr)).setText(edit_text.getText().toString().trim());
 				}
 			});
 			alert.show();
-		}else if(v.getId()==R.id.relative_ContractCode){
+		}else if(v.getId()==R.id.addorder_ContractCode){
 			alert=new AlertDialog.Builder(AddorderActivity.this).create();
 			final EditText edit_text=new EditText(this);
 			alert.setView(edit_text);
@@ -165,11 +168,12 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 			alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new OnClickListener(){
 				@Override
 				public void onClick(DialogInterface dialogIn, int which) {
-					 ((TextView)findViewById(R.id.addorder_ContractCode)).setText(edit_text.getText().toString().trim());;
+					 if(!edit_text.getText().toString().trim().equals(""))
+						 ((TextView)findViewById(R.id.addorder_ContractCode)).setText(edit_text.getText().toString().trim());;
 				}
 			});
 			alert.show();
-		}else if(v.getId()==R.id.relative_ReceDays){
+		}else if(v.getId()==R.id.addorder_ReceDays){
 			alert=new AlertDialog.Builder(AddorderActivity.this).create();
 			final EditText edit_text=new EditText(this);
 			//只能输入数字
@@ -182,12 +186,13 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 			alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new OnClickListener(){
 				@Override
 				public void onClick(DialogInterface dialogIn, int which) {
-					 ((TextView)findViewById(R.id.addorder_ReceDays)).setText(edit_text.getText().toString().trim());;
+					 if(!edit_text.getText().toString().trim().equals(""))
+						 ((TextView)findViewById(R.id.addorder_ReceDays)).setText(edit_text.getText().toString().trim());;
 				}
 			});
 			alert.show();
 		}//弹出选择框，这边是需要选择的
-		else if(v.getId()==R.id.relative_DeptName){
+		else if(v.getId()==R.id.addorder_DeptName){
 				new Thread(){
 					public void run() {
 						String target=parenturl+"getdepartment";
@@ -212,7 +217,7 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 						}
 					};
 				}.start();
-		}else if(v.getId()==R.id.relative_TransportName){
+		}else if(v.getId()==R.id.addorder_TransportName){
 			new Thread(){
 				public void run() {
 					String target=parenturl+"gettransportmode";
@@ -237,7 +242,7 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 					}
 				};
 			}.start();
-		}else if(v.getId()==R.id.relative_SettleName){
+		}else if(v.getId()==R.id.addorder_SettleName){
 			new Thread(){
 				public void run() {
 					String target=parenturl+"getsettlemode";
@@ -262,7 +267,7 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 					}
 				};
 			}.start();
-		}else if(v.getId()==R.id.relative_CustName){
+		}else if(v.getId()==R.id.addorder_CustName){
 			new Thread(){
 				public void run() {
 					String target=parenturl+"getse_customer";
@@ -287,7 +292,7 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 					}
 				};
 			}.start();
-		}else if(v.getId()==R.id.relative_SellerName){
+		}else if(v.getId()==R.id.addorder_SellerName){
 			new Thread(){
 				public void run() {
 					String target=parenturl+"getemployee";
@@ -506,4 +511,62 @@ public class AddorderActivity extends Activity implements OnTouchListener{
 				super.handleMessage(msg);
 			}
 		};
+		@Override
+		public void onClick(View v) {
+			//进入添加详情jiemian
+			Intent intent=new Intent();
+			intent.setClass(AddorderActivity.this, AdddetailsActivity.class);
+			Bundle bundle = new Bundle();
+			intent.putExtras(bundle);//将Bundle添加到Intent,也可以在Bundle中添加相应数据传递给下个页面,例如：bundle.putString("abc", "bbb");
+			startActivityForResult(intent, 100);// 跳转并要求返回值，0代表请求值(可以随便写)
+		}
+		@Override
+		protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		  super.onActivityResult(requestCode, resultCode, data);
+		  if (requestCode ==100&& resultCode == Activity.RESULT_OK) {
+			  Bundle bundle = data.getExtras();
+		
+			  try {
+				JSONObject jsonObject=new JSONObject();
+				jsonObject.put("GoodsID", bundle.getString("GoodsID"));
+				jsonObject.put("Number", bundle.getString("Number"));
+				jsonObject.put("Price", bundle.getString("Price"));
+				jsonObject.put("Money", bundle.getString("Money"));
+				jsonObject.put("DtDeliveryDate", bundle.getString("DtDeliveryDate"));
+				jsonObject.put("DtNotes", bundle.getString("DtNotes"));
+				jsonObject.put("PKGNum", bundle.getString("PKGNum"));
+				//将某个详情存入jsonarray中
+			//	orderdetails_jsonarray.put((Object)jsonObject);
+				//动态生成布局 显示新增详情
+				LinearLayout linearLayout=new LinearLayout(AddorderActivity.this);
+				linearLayout.setOrientation(LinearLayout.VERTICAL);
+				linearLayout.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+				View view=new View(AddorderActivity.this);
+				view.setBackgroundColor(getResources().getColor(R.color.darkgray));
+				linearLayout.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,1));
+				linearLayout.addView(view);
+				TextView textView1=new TextView(AddorderActivity.this);
+				textView1.setText(bundle.getString("GoodsName"));
+				textView1.setTextColor(getResources().getColor(R.color.black));
+				textView1.setTextSize(20);
+				textView1.setPadding(20, 0, 0, 0);
+				linearLayout.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+				linearLayout.addView(textView1);
+				TextView textView2=new TextView(AddorderActivity.this);
+				linearLayout.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+				textView2.setText("数量:"+bundle.getString("Number")+" 价格:"+bundle.getString("Price")
+						+" 金额:"+ bundle.getString("Money")+" 交货日期:"+bundle.getString("DtDeliveryDate")
+						+" 备注:"+ bundle.getString("DtNotes")+" 包装量:"+ bundle.getString("PKGNum"));
+				textView2.setTextSize(12);
+				textView2.setPadding(20, 0, 0, 0);
+				linearLayout.addView(textView2);
+				((LinearLayout)findViewById(R.id.addorder_scroll_child_linear)).addView(linearLayout);
+				Toast.makeText(AddorderActivity.this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
+			  } catch (JSONException e) {
+				  Toast.makeText(AddorderActivity.this, "报错啦啦", Toast.LENGTH_SHORT).show();
+			}
+//			 Toast.makeText(AddorderActivity.this, bundle.toString(), Toast.LENGTH_SHORT).show();
+		    
+		  }
+		}
 }

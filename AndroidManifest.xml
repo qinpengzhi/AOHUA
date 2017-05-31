@@ -35,6 +35,7 @@
         <activity android:name=".UserActivity"></activity>
         <activity android:name=".SettingActivity"></activity>
         <activity android:name=".UserdetailsActivity"></activity>
+        <activity android:name=".AdddetailsActivity"></activity>
     </application>
 
 </manifest>
