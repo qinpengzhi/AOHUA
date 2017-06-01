@@ -7,12 +7,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="20dp"
-        android:id="@+id/activity_addorder_head"
+        android:id="@+id/activity_addorder1_head"
         android:background="@drawable/bottom_border">
         <ImageView android:layout_height="match_parent"
 	        android:layout_width="wrap_content"
 	        android:gravity="left"
-	        android:id="@+id/adddorder_img_cancel"
+	        android:id="@+id/adddorder1_img_cancel"
 	        android:layout_weight="1"
 	        android:src="@drawable/ic_action_goleft"/>
         <TextView android:layout_width="wrap_content"
@@ -26,17 +26,17 @@
 	        android:layout_width="wrap_content"
 	        android:gravity="right"
 	        android:layout_weight="1"
-	         android:id="@+id/adddorder_img_tick"
+	         android:id="@+id/adddorder1_img_tick"
 	        android:src="@drawable/ic_action_tick"/>
     </LinearLayout>
 	<ScrollView
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"   
-	    android:layout_below="@+id/activity_addorder_head"
+	    android:layout_below="@+id/activity_addorder1_head"
 	 	>
 	 <LinearLayout android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:id="@+id/addorder_scroll_child_linear"
+	    android:id="@+id/addorder1_scroll_child_linear"
 	    android:orientation="vertical">
 	     <RelativeLayout android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
 		        android:layout_alignParentLeft="true"
 		        android:gravity="left"
 		        android:textColor="@color/black"
-		        android:text="订单单号"/>
+		        android:text="采购单号"/>
 	     	 <TextView  android:layout_width="wrap_content"
 		        android:layout_height="match_parent"
 		        android:layout_marginLeft="70dp"
@@ -60,7 +60,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text="     >"
-		        android:id="@+id/addorder_OrderCode"/> 
+		        android:id="@+id/addorder1_PurOrderCode"/> 
 		</RelativeLayout>
 	    <View android:layout_height="1dp"
 	        android:layout_width="match_parent"
@@ -70,7 +70,6 @@
 	        android:orientation="horizontal"
 	         android:paddingTop="6dp"
 	         android:paddingLeft="20dp"
-	         android:id="@+id/relative_CustName"
 	         android:paddingRight="20dp"
 	        android:paddingBottom="6dp">	    
 	        <TextView android:layout_width="wrap_content"
@@ -79,7 +78,7 @@
 		        android:layout_alignParentLeft="true"
 		        android:gravity="left"
 		        android:textColor="@color/black"
-		        android:text="客戶"/>
+		        android:text="供应商"/>
 	     	 <TextView  android:layout_width="wrap_content"
 		        android:layout_height="match_parent"
 		        android:layout_marginLeft="70dp"
@@ -88,7 +87,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text="     >"
-		        android:id="@+id/addorder_CustName"/> 
+		        android:id="@+id/addorder1_SupplierName"/> 
 		</RelativeLayout>
 	    <View android:layout_height="1dp"
 	        android:layout_width="match_parent"
@@ -98,7 +97,6 @@
 	        android:orientation="horizontal"
 	         android:paddingTop="6dp"
 	         android:paddingLeft="20dp"
-	         android:id="@+id/relative_DeliveryDate"
 	         android:paddingRight="20dp"
 	        android:paddingBottom="6dp">	    
 	        <TextView android:layout_width="wrap_content"
@@ -107,7 +105,7 @@
 		        android:layout_alignParentLeft="true"
 		        android:gravity="left"
 		        android:textColor="@color/black"
-		        android:text="交货日期"/>
+		        android:text="到货日期"/>
 	     	 <TextView  android:layout_width="wrap_content"
 		        android:layout_height="match_parent"
 		        android:layout_marginLeft="70dp"
@@ -116,7 +114,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text="     >"
-		        android:id="@+id/addorder_DeliveryDate"/> 
+		        android:id="@+id/addorder1_AogDate"/> 
 		</RelativeLayout>
 	    <View android:layout_height="1dp"
 	        android:layout_width="match_parent"
@@ -125,7 +123,6 @@
 	      <RelativeLayout android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="horizontal"
-	         android:id="@+id/relative_SignDate"
 	         android:paddingTop="6dp"
 	         android:paddingLeft="20dp"
 	         android:paddingRight="20dp"
@@ -145,37 +142,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text="     >"
-		        android:id="@+id/addorder_SignDate"/> 
-		</RelativeLayout>
-	    
-	    <View android:layout_height="1dp"
-	        android:layout_width="match_parent"
-	        android:background="@color/darkgray"/> 
-	    
-	     <RelativeLayout android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal"
-	         android:paddingTop="6dp"
-	         android:paddingLeft="20dp"
-	         android:paddingRight="20dp"
-	         android:id="@+id/relative_DeptName"
-	        android:paddingBottom="6dp">	    
-	        <TextView android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
-		        android:textSize="20dp"
-		        android:layout_alignParentLeft="true"
-		        android:gravity="left"
-		        android:textColor="@color/black"
-		        android:text="所属部门"/>
-	     	 <TextView  android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
-		        android:layout_marginLeft="70dp"
-		        android:textSize="20dp"
-		        android:layout_alignParentRight="true"
-		        android:layout_gravity="right"
-		        android:gravity="right"
-		        android:text="     >"
-		        android:id="@+id/addorder_DeptName"/> 
+		        android:id="@+id/addorder1_SignDate"/> 
 		</RelativeLayout>
 		 
 	    <View android:layout_height="1dp"
@@ -186,7 +153,6 @@
 	        android:layout_height="wrap_content"
 	        android:orientation="horizontal"
 	         android:paddingTop="6dp"
-	         android:id="@+id/relative_DeliveryAddr"
 	         android:paddingLeft="20dp"
 	         android:paddingRight="20dp"
 	        android:paddingBottom="6dp">	    
@@ -205,7 +171,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text="     >"
-		        android:id="@+id/addorder_DeliveryAddr"/> 
+		        android:id="@+id/addorder1_DeliveryAddr"/> 
 		</RelativeLayout>
 	    
 	    <View android:layout_height="1dp"
@@ -218,37 +184,6 @@
 	         android:paddingTop="6dp"
 	         android:paddingLeft="20dp"
 	         android:paddingRight="20dp"
-	         android:id="@+id/relative_TransportName"
-	        android:paddingBottom="6dp">	    
-	        <TextView android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
-		        android:textSize="20dp"
-		        android:layout_alignParentLeft="true"
-		        android:gravity="left"
-		        android:textColor="@color/black"
-		        android:text="运输方式"/>
-	     	 <TextView  android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
-		        android:layout_marginLeft="70dp"
-		        android:textSize="20dp"
-		        android:layout_alignParentRight="true"
-		        android:layout_gravity="right"
-		        android:gravity="right"
-		        android:text="     >"
-		        android:id="@+id/addorder_TransportName"/> 
-		</RelativeLayout>
-	    
-	    <View android:layout_height="1dp"
-	        android:layout_width="match_parent"
-	        android:background="@color/darkgray"/> 
-	        
-	   <RelativeLayout android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal"
-	         android:paddingTop="6dp"
-	         android:paddingLeft="20dp"
-	         android:paddingRight="20dp"
-	          android:id="@+id/relative_SettleName"
 	        android:paddingBottom="6dp">	    
 	        <TextView android:layout_width="wrap_content"
 		        android:layout_height="match_parent"
@@ -265,19 +200,18 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text="     >"
-		        android:id="@+id/addorder_SettleName"/> 
+		        android:id="@+id/addorder1_SettleName"/> 
 		</RelativeLayout>
 		
-	    <View android:layout_height="1dp"
+	     <View android:layout_height="1dp"
 	        android:layout_width="match_parent"
 	        android:background="@color/darkgray"/> 
-	        
+	    
 	    <RelativeLayout android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="horizontal"
 	         android:paddingTop="6dp"
 	         android:paddingLeft="20dp"
-	         android:id="@+id/relative_Freight"
 	         android:paddingRight="20dp"
 	        android:paddingBottom="6dp">	    
 	        <TextView android:layout_width="wrap_content"
@@ -286,7 +220,7 @@
 		        android:layout_alignParentLeft="true"
 		        android:gravity="left"
 		        android:textColor="@color/black"
-		        android:text="运输费用"/>
+		        android:text="付款期（天）"/>
 	     	 <TextView  android:layout_width="wrap_content"
 		        android:layout_height="match_parent"
 		        android:layout_marginLeft="70dp"
@@ -295,7 +229,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text="     >"
-		        android:id="@+id/addorder_Freight"/> 
+		        android:id="@+id/addorder1_PayDays"/> 
 		</RelativeLayout>
 	    
 	    <View android:layout_height="1dp"
@@ -307,7 +241,6 @@
 	        android:orientation="horizontal"
 	         android:paddingTop="6dp"
 	         android:paddingLeft="20dp"
-	         android:id="@+id/relative_SignAddr"
 	         android:paddingRight="20dp"
 	        android:paddingBottom="6dp">	    
 	        <TextView android:layout_width="wrap_content"
@@ -325,7 +258,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text="     >"
-		        android:id="@+id/addorder_SignAddr"/> 
+		        android:id="@+id/addorder1_SignAddr"/> 
 		</RelativeLayout>
 		
 	    <View android:layout_height="1dp"
@@ -337,7 +270,6 @@
 	        android:orientation="horizontal"
 	         android:paddingTop="6dp"
 	         android:paddingLeft="20dp"
-	         android:id="@+id/relative_ContractCode"
 	         android:paddingRight="20dp"
 	        android:paddingBottom="6dp">	    
 	        <TextView android:layout_width="wrap_content"
@@ -355,37 +287,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text="     >"
-		        android:id="@+id/addorder_ContractCode"/> 
-		</RelativeLayout>
-		
-	    <View android:layout_height="1dp"
-	        android:layout_width="match_parent"
-	        android:background="@color/darkgray"/> 
-	    
-	    <RelativeLayout android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal"
-	         android:paddingTop="6dp"
-	         android:paddingLeft="20dp"
-	         android:id="@+id/relative_ReceDays"
-	         android:paddingRight="20dp"
-	        android:paddingBottom="6dp">	    
-	        <TextView android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
-		        android:textSize="20dp"
-		        android:layout_alignParentLeft="true"
-		        android:gravity="left"
-		        android:textColor="@color/black"
-		        android:text="收款期（天）"/>
-	     	 <TextView  android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
-		        android:layout_marginLeft="70dp"
-		        android:textSize="20dp"
-		        android:layout_alignParentRight="true"
-		        android:layout_gravity="right"
-		        android:gravity="right"
-		        android:text="     >"
-		        android:id="@+id/addorder_ReceDays"/> 
+		        android:id="@+id/addorder1_ContractCode"/> 
 		</RelativeLayout>
 		
 	    <View android:layout_height="1dp"
@@ -397,7 +299,6 @@
 	        android:orientation="horizontal"
 	         android:paddingTop="6dp"
 	         android:paddingLeft="20dp"
-	          android:id="@+id/relative_SellerName"
 	         android:paddingRight="20dp"
 	        android:paddingBottom="6dp">	    
 	        <TextView android:layout_width="wrap_content"
@@ -406,7 +307,7 @@
 		        android:layout_alignParentLeft="true"
 		        android:gravity="left"
 		        android:textColor="@color/black"
-		        android:text="业务员"/>
+		        android:text="采购员"/>
 	     	 <TextView  android:layout_width="wrap_content"
 		        android:layout_height="match_parent"
 		        android:layout_marginLeft="70dp"
@@ -415,13 +316,10 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text="     >"
-		        android:id="@+id/addorder_SellerName"/> 
+		        android:id="@+id/addorder1_BuyerName"/> 
 		</RelativeLayout>
-		
-	    <!--  <View android:layout_height="15dp"
-	        android:layout_width="match_parent"
-	        android:background="@color/darkgray"/>  -->
-	      <TextView android:id="@+id/addorder_go_adddetails"
+
+	      <TextView android:id="@+id/addorder1_go_adddetails"
 	          android:layout_width="match_parent"
 	          android:layout_height="match_parent"
 	          android:text="添加明细"
@@ -433,25 +331,7 @@
 	          android:gravity="center"
 	          android:textColor="@color/white"
 	          />
-	     <!--  <LinearLayout android:layout_width="match_parent"
-	          android:layout_height="wrap_content"
-	          android:orientation="vertical">
-	      <View android:layout_height="1dp"
-	        android:layout_width="match_parent"
-	        android:background="@color/darkgray"/>
-	      <TextView  android:paddingLeft="20dp"
-	           android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
-		        android:textSize="20dp"
-		        android:text="XXXXXXXXX"
-	           android:textColor="@color/black"/>
-	       <TextView  android:paddingLeft="20dp"
-	           android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
-		        android:textSize="12dp"
-		        android:text="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-	           	/>
-	      </LinearLayout>  -->
+	
 	</LinearLayout>
 	</ScrollView>     
 

@@ -1,6 +1,7 @@
 package com.example.aohua;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -24,6 +25,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.os.Handler;
@@ -53,7 +55,8 @@ public class AddorderActivity extends Activity implements OnTouchListener, andro
 	private AlertDialog alert;
 	private DatePickerDialog dialog;
 	private TextView addorder_go_adddetails;//进入添加明细界面的按钮
-	private JSONArray orderdetails_jsonarray;//存储订单明细的json串
+	private JSONArray orderdetails_jsonarray=new JSONArray();//存储订单明细的json串
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -67,6 +70,8 @@ public class AddorderActivity extends Activity implements OnTouchListener, andro
 		this.findViewById(R.id.addorder_DeliveryAddr).setOnTouchListener(this);
 		//填写运输费用
 		this.findViewById(R.id.addorder_Freight).setOnTouchListener(this);
+		//OrderCode填写订单单号
+		this.findViewById(R.id.addorder_OrderCode).setOnTouchListener(this);
 		//SignAddr填写签订地址
 		this.findViewById(R.id.addorder_SignAddr).setOnTouchListener(this);
 		//ContractCode填写合同号
@@ -83,9 +88,11 @@ public class AddorderActivity extends Activity implements OnTouchListener, andro
 		this.findViewById(R.id.addorder_CustName).setOnTouchListener(this);
 		//SellerName弹出业务员选择列表
 		this.findViewById(R.id.addorder_SellerName).setOnTouchListener(this);	
-	
+
 		addorder_go_adddetails=(TextView) findViewById(R.id.addorder_go_adddetails);
 		addorder_go_adddetails.setOnClickListener(this);
+		findViewById(R.id.adddorder_img_tick).setOnClickListener(this);
+		findViewById(R.id.adddorder_img_cancel).setOnClickListener(this);
 	}
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
@@ -95,7 +102,7 @@ public class AddorderActivity extends Activity implements OnTouchListener, andro
 			dialog=new DatePickerDialog(AddorderActivity.this,new DatePickerDialog.OnDateSetListener() {
 				@Override
 				public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-					 ((TextView)findViewById(R.id.addorder_DeliveryDate)).setText(year+"-"+(month+1)+"-"+dayOfMonth);
+					((TextView)findViewById(R.id.addorder_DeliveryDate)).setText(year+"-"+(month+1)+"-"+dayOfMonth);
 				}
 			}, calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 			dialog.show();
@@ -103,7 +110,7 @@ public class AddorderActivity extends Activity implements OnTouchListener, andro
 			calendar=Calendar.getInstance();
 			dialog=new DatePickerDialog(AddorderActivity.this,new DatePickerDialog.OnDateSetListener() {
 				public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-					 ((TextView)findViewById(R.id.addorder_SignDate)).setText(year+"-"+(month+1)+"-"+dayOfMonth);
+					((TextView)findViewById(R.id.addorder_SignDate)).setText(year+"-"+(month+1)+"-"+dayOfMonth);
 				}
 			}, calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 			dialog.show();
@@ -118,8 +125,8 @@ public class AddorderActivity extends Activity implements OnTouchListener, andro
 			alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new OnClickListener(){
 				@Override
 				public void onClick(DialogInterface dialogIn, int which) {
-					 if(!edit_text.getText().toString().trim().equals(""))
-						 ((TextView)findViewById(R.id.addorder_DeliveryAddr)).setText(edit_text.getText().toString().trim());;
+					if(!edit_text.getText().toString().trim().equals(""))
+						((TextView)findViewById(R.id.addorder_DeliveryAddr)).setText(edit_text.getText().toString().trim());;
 				}
 			});
 			alert.show();
@@ -136,8 +143,8 @@ public class AddorderActivity extends Activity implements OnTouchListener, andro
 			alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new OnClickListener(){
 				@Override
 				public void onClick(DialogInterface dialogIn, int which) {
-					 if(!edit_text.getText().toString().trim().equals(""))
-						 ((TextView)findViewById(R.id.addorder_Freight)).setText(edit_text.getText().toString().trim());;
+					if(!edit_text.getText().toString().trim().equals(""))
+						((TextView)findViewById(R.id.addorder_Freight)).setText(edit_text.getText().toString().trim());;
 				}
 			});
 			alert.show();
@@ -152,8 +159,24 @@ public class AddorderActivity extends Activity implements OnTouchListener, andro
 			alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new OnClickListener(){
 				@Override
 				public void onClick(DialogInterface dialogIn, int which) {
-					 if(!edit_text.getText().toString().trim().equals(""))
-						 ((TextView)findViewById(R.id.addorder_SignAddr)).setText(edit_text.getText().toString().trim());
+					if(!edit_text.getText().toString().trim().equals(""))
+						((TextView)findViewById(R.id.addorder_SignAddr)).setText(edit_text.getText().toString().trim());
+				}
+			});
+			alert.show();
+		}else if(v.getId()==R.id.addorder_OrderCode){
+			alert=new AlertDialog.Builder(AddorderActivity.this).create();
+			final EditText edit_text=new EditText(this);
+			alert.setView(edit_text);
+			alert.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new OnClickListener(){
+				@Override
+				public void onClick(DialogInterface dialog, int which) {}
+			});
+			alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new OnClickListener(){
+				@Override
+				public void onClick(DialogInterface dialogIn, int which) {
+					if(!edit_text.getText().toString().trim().equals(""))
+						((TextView)findViewById(R.id.addorder_OrderCode)).setText(edit_text.getText().toString().trim());
 				}
 			});
 			alert.show();
@@ -168,8 +191,8 @@ public class AddorderActivity extends Activity implements OnTouchListener, andro
 			alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new OnClickListener(){
 				@Override
 				public void onClick(DialogInterface dialogIn, int which) {
-					 if(!edit_text.getText().toString().trim().equals(""))
-						 ((TextView)findViewById(R.id.addorder_ContractCode)).setText(edit_text.getText().toString().trim());;
+					if(!edit_text.getText().toString().trim().equals(""))
+						((TextView)findViewById(R.id.addorder_ContractCode)).setText(edit_text.getText().toString().trim());;
 				}
 			});
 			alert.show();
@@ -186,37 +209,37 @@ public class AddorderActivity extends Activity implements OnTouchListener, andro
 			alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new OnClickListener(){
 				@Override
 				public void onClick(DialogInterface dialogIn, int which) {
-					 if(!edit_text.getText().toString().trim().equals(""))
-						 ((TextView)findViewById(R.id.addorder_ReceDays)).setText(edit_text.getText().toString().trim());;
+					if(!edit_text.getText().toString().trim().equals(""))
+						((TextView)findViewById(R.id.addorder_ReceDays)).setText(edit_text.getText().toString().trim());;
 				}
 			});
 			alert.show();
 		}//弹出选择框，这边是需要选择的
 		else if(v.getId()==R.id.addorder_DeptName){
-				new Thread(){
-					public void run() {
-						String target=parenturl+"getdepartment";
-						HttpClient httpClient=new DefaultHttpClient();
-						HttpPost httpRequest=new HttpPost(target);
-						try{
-							HttpResponse httpResponse=httpClient.execute(httpRequest);
-							if(httpResponse.getStatusLine().getStatusCode()==HttpStatus.SC_OK){
-								//如果成功
-								Message message=Message.obtain();
-								message.what=1;
-								message.obj=EntityUtils.toString(httpResponse.getEntity(),"utf-8");
-								handler1.sendMessage(message);
-							}else{
-								//如果网络连接失败
-								Message message=Message.obtain();
-								message.what=0;
-								handler1.sendMessage(message);
-							}
-						}catch(Exception e){
-							e.printStackTrace();
+			new Thread(){
+				public void run() {
+					String target=parenturl+"getdepartment";
+					HttpClient httpClient=new DefaultHttpClient();
+					HttpPost httpRequest=new HttpPost(target);
+					try{
+						HttpResponse httpResponse=httpClient.execute(httpRequest);
+						if(httpResponse.getStatusLine().getStatusCode()==HttpStatus.SC_OK){
+							//如果成功
+							Message message=Message.obtain();
+							message.what=1;
+							message.obj=EntityUtils.toString(httpResponse.getEntity(),"utf-8");
+							handler1.sendMessage(message);
+						}else{
+							//如果网络连接失败
+							Message message=Message.obtain();
+							message.what=0;
+							handler1.sendMessage(message);
 						}
-					};
-				}.start();
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				};
+			}.start();
 		}else if(v.getId()==R.id.addorder_TransportName){
 			new Thread(){
 				public void run() {
@@ -334,7 +357,7 @@ public class AddorderActivity extends Activity implements OnTouchListener, andro
 					JSONArray json = new JSONArray( msg.obj.toString());
 					for(int i=0;i<json.length();i++){
 						JSONObject temp = (JSONObject) json.get(i);  
-					//	departMentCode.add((Integer) temp.get("DeptID"));
+						//	departMentCode.add((Integer) temp.get("DeptID"));
 						list.add(temp.getString("DeptName")); 
 						codelist.add(temp.getInt("DeptID"));
 					}
@@ -342,15 +365,15 @@ public class AddorderActivity extends Activity implements OnTouchListener, andro
 					final String[] items=list.toArray(new String[list.size()]);
 					final Integer[] codeitems=codelist.toArray(new Integer[codelist.size()]);
 					builder.setItems(items, new DialogInterface.OnClickListener()  
-				       {  
-				           @Override  
-				           public void onClick(DialogInterface dialog, int which)  
-				           {  
-				               ((TextView)findViewById(R.id.addorder_DeptName)).setText(items[which].toString().trim());
-				               DeptID=codeitems[which];
-				               Toast.makeText(AddorderActivity.this, "选择的部门id为：" + DeptID, Toast.LENGTH_SHORT).show();
-				           }  
-				       });  
+					{  
+						@Override  
+						public void onClick(DialogInterface dialog, int which)  
+						{  
+							((TextView)findViewById(R.id.addorder_DeptName)).setText(items[which].toString().trim());
+							DeptID=codeitems[which];
+							Toast.makeText(AddorderActivity.this, "选择的部门id为：" + DeptID, Toast.LENGTH_SHORT).show();
+						}  
+					});  
 					builder.create().show();
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -372,7 +395,7 @@ public class AddorderActivity extends Activity implements OnTouchListener, andro
 					JSONArray json = new JSONArray( msg.obj.toString());
 					for(int i=0;i<json.length();i++){
 						JSONObject temp = (JSONObject) json.get(i);  
-					//	departMentCode.add((Integer) temp.get("DeptID"));
+						//	departMentCode.add((Integer) temp.get("DeptID"));
 						list.add(temp.getString("TransportName")); 
 						codelist.add(temp.getInt("TransportID"));
 					}
@@ -380,15 +403,15 @@ public class AddorderActivity extends Activity implements OnTouchListener, andro
 					final String[] items=list.toArray(new String[list.size()]);
 					final Integer[] codeitems=codelist.toArray(new Integer[codelist.size()]);
 					builder.setItems(items, new DialogInterface.OnClickListener()  
-				       {  
-				           @Override  
-				           public void onClick(DialogInterface dialog, int which)  
-				           {  
-				               ((TextView)findViewById(R.id.addorder_TransportName)).setText(items[which].toString().trim());
-				               TransportID=codeitems[which];
-				               Toast.makeText(AddorderActivity.this, "选择的运输方式id为：" + TransportID, Toast.LENGTH_SHORT).show();
-				           }  
-				       });  
+					{  
+						@Override  
+						public void onClick(DialogInterface dialog, int which)  
+						{  
+							((TextView)findViewById(R.id.addorder_TransportName)).setText(items[which].toString().trim());
+							TransportID=codeitems[which];
+							Toast.makeText(AddorderActivity.this, "选择的运输方式id为：" + TransportID, Toast.LENGTH_SHORT).show();
+						}  
+					});  
 					builder.create().show();
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -398,135 +421,246 @@ public class AddorderActivity extends Activity implements OnTouchListener, andro
 		}
 	};
 	//结算方式选择框
-		private Handler handler3=new Handler(){
-			@Override
-			public void handleMessage(Message msg) {
-				if(msg.what==0){
-					Toast.makeText(AddorderActivity.this,"网络连接失败！", Toast.LENGTH_LONG).show();
-				}else{
-					try {
-						List<Integer> codelist=new ArrayList<Integer>();
-						List<String> list=new ArrayList<String>();
-						JSONArray json = new JSONArray( msg.obj.toString());
-						for(int i=0;i<json.length();i++){
-							JSONObject temp = (JSONObject) json.get(i);  
-						//	departMentCode.add((Integer) temp.get("DeptID"));
-							list.add(temp.getString("SettleName")); 
-							codelist.add(temp.getInt("SettleID"));
-						}
-						Builder builder =new AlertDialog.Builder(AddorderActivity.this);
-						final String[] items=list.toArray(new String[list.size()]);
-						final Integer[] codeitems=codelist.toArray(new Integer[codelist.size()]);
-						builder.setItems(items, new DialogInterface.OnClickListener()  
-					       {  
-					           @Override  
-					           public void onClick(DialogInterface dialog, int which)  
-					           {  
-					               ((TextView)findViewById(R.id.addorder_SettleName)).setText(items[which].toString().trim());
-					               SettleID=codeitems[which];
-					               Toast.makeText(AddorderActivity.this, "选择的结算方式id为：" + SettleID, Toast.LENGTH_SHORT).show();
-					           }  
-					       });  
-						builder.create().show();
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-				}
-				super.handleMessage(msg);
-			}
-		};
-		//客户选择框
-		private Handler handler4=new Handler(){
-			@Override
-			public void handleMessage(Message msg) {
-				if(msg.what==0){
-					Toast.makeText(AddorderActivity.this,"网络连接失败！", Toast.LENGTH_LONG).show();
-				}else{
-					try {
-						List<Integer> codelist=new ArrayList<Integer>();
-						List<String> list=new ArrayList<String>();
-						JSONArray json = new JSONArray( msg.obj.toString());
-						for(int i=0;i<json.length();i++){
-							JSONObject temp = (JSONObject) json.get(i);  
-						//	departMentCode.add((Integer) temp.get("DeptID"));
-							list.add(temp.getString("CustName")); 
-							codelist.add(temp.getInt("CustID"));
-						}
-						Builder builder =new AlertDialog.Builder(AddorderActivity.this);
-						final String[] items=list.toArray(new String[list.size()]);
-						final Integer[] codeitems=codelist.toArray(new Integer[codelist.size()]);
-						builder.setItems(items, new DialogInterface.OnClickListener()  
-					       {  
-					           @Override  
-					           public void onClick(DialogInterface dialog, int which)  
-					           {  
-					               ((TextView)findViewById(R.id.addorder_CustName)).setText(items[which].toString().trim());
-					               CustID=codeitems[which];
-					               Toast.makeText(AddorderActivity.this, "选择的客户id为：" + CustID, Toast.LENGTH_SHORT).show();
-					           }  
-					       });  
-						builder.create().show();
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-				}
-				super.handleMessage(msg);
-			}
-		};	
-		//业务员选择框
-		private Handler handler5=new Handler(){
-			@Override
-			public void handleMessage(Message msg) {
-				if(msg.what==0){
-					Toast.makeText(AddorderActivity.this,"网络连接失败！", Toast.LENGTH_LONG).show();
-				}else{
-					try {
-						List<Integer> codelist=new ArrayList<Integer>();
-						List<String> list=new ArrayList<String>();
-						JSONArray json = new JSONArray( msg.obj.toString());
-						for(int i=0;i<json.length();i++){
-							JSONObject temp = (JSONObject) json.get(i);  
-						//	departMentCode.add((Integer) temp.get("DeptID"));
-							list.add(temp.getString("EmpName")); 
-							codelist.add(temp.getInt("EmpID"));
-						}
-						Builder builder =new AlertDialog.Builder(AddorderActivity.this);
-						final String[] items=list.toArray(new String[list.size()]);
-						final Integer[] codeitems=codelist.toArray(new Integer[codelist.size()]);
-						builder.setItems(items, new DialogInterface.OnClickListener()  
-					       {  
-					           @Override  
-					           public void onClick(DialogInterface dialog, int which)  
-					           {  
-					               ((TextView)findViewById(R.id.addorder_SellerName)).setText(items[which].toString().trim());
-					               SellerID=codeitems[which];
-					               Toast.makeText(AddorderActivity.this, "选择的业务员id为：" + SellerID, Toast.LENGTH_SHORT).show();
-					           }  
-					       });  
-						builder.create().show();
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-				}
-				super.handleMessage(msg);
-			}
-		};
+	private Handler handler3=new Handler(){
 		@Override
-		public void onClick(View v) {
-			//进入添加详情jiemian
+		public void handleMessage(Message msg) {
+			if(msg.what==0){
+				Toast.makeText(AddorderActivity.this,"网络连接失败！", Toast.LENGTH_LONG).show();
+			}else{
+				try {
+					List<Integer> codelist=new ArrayList<Integer>();
+					List<String> list=new ArrayList<String>();
+					JSONArray json = new JSONArray( msg.obj.toString());
+					for(int i=0;i<json.length();i++){
+						JSONObject temp = (JSONObject) json.get(i);  
+						//	departMentCode.add((Integer) temp.get("DeptID"));
+						list.add(temp.getString("SettleName")); 
+						codelist.add(temp.getInt("SettleID"));
+					}
+					Builder builder =new AlertDialog.Builder(AddorderActivity.this);
+					final String[] items=list.toArray(new String[list.size()]);
+					final Integer[] codeitems=codelist.toArray(new Integer[codelist.size()]);
+					builder.setItems(items, new DialogInterface.OnClickListener()  
+					{  
+						@Override  
+						public void onClick(DialogInterface dialog, int which)  
+						{  
+							((TextView)findViewById(R.id.addorder_SettleName)).setText(items[which].toString().trim());
+							SettleID=codeitems[which];
+							Toast.makeText(AddorderActivity.this, "选择的结算方式id为：" + SettleID, Toast.LENGTH_SHORT).show();
+						}  
+					});  
+					builder.create().show();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+			super.handleMessage(msg);
+		}
+	};
+	//客户选择框
+	private Handler handler4=new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			if(msg.what==0){
+				Toast.makeText(AddorderActivity.this,"网络连接失败！", Toast.LENGTH_LONG).show();
+			}else{
+				try {
+					List<Integer> codelist=new ArrayList<Integer>();
+					List<String> list=new ArrayList<String>();
+					JSONArray json = new JSONArray( msg.obj.toString());
+					for(int i=0;i<json.length();i++){
+						JSONObject temp = (JSONObject) json.get(i);  
+						//	departMentCode.add((Integer) temp.get("DeptID"));
+						list.add(temp.getString("CustName")); 
+						codelist.add(temp.getInt("CustID"));
+					}
+					Builder builder =new AlertDialog.Builder(AddorderActivity.this);
+					final String[] items=list.toArray(new String[list.size()]);
+					final Integer[] codeitems=codelist.toArray(new Integer[codelist.size()]);
+					builder.setItems(items, new DialogInterface.OnClickListener()  
+					{  
+						@Override  
+						public void onClick(DialogInterface dialog, int which)  
+						{  
+							((TextView)findViewById(R.id.addorder_CustName)).setText(items[which].toString().trim());
+							CustID=codeitems[which];
+							Toast.makeText(AddorderActivity.this, "选择的客户id为：" + CustID, Toast.LENGTH_SHORT).show();
+						}  
+					});  
+					builder.create().show();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+			super.handleMessage(msg);
+		}
+	};	
+	//业务员选择框
+	private Handler handler5=new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			if(msg.what==0){
+				Toast.makeText(AddorderActivity.this,"网络连接失败！", Toast.LENGTH_LONG).show();
+			}else{
+				try {
+					List<Integer> codelist=new ArrayList<Integer>();
+					List<String> list=new ArrayList<String>();
+					JSONArray json = new JSONArray( msg.obj.toString());
+					for(int i=0;i<json.length();i++){
+						JSONObject temp = (JSONObject) json.get(i);  
+						//	departMentCode.add((Integer) temp.get("DeptID"));
+						list.add(temp.getString("EmpName")); 
+						codelist.add(temp.getInt("EmpID"));
+					}
+					Builder builder =new AlertDialog.Builder(AddorderActivity.this);
+					final String[] items=list.toArray(new String[list.size()]);
+					final Integer[] codeitems=codelist.toArray(new Integer[codelist.size()]);
+					builder.setItems(items, new DialogInterface.OnClickListener()  
+					{  
+						@Override  
+						public void onClick(DialogInterface dialog, int which)  
+						{  
+							((TextView)findViewById(R.id.addorder_SellerName)).setText(items[which].toString().trim());
+							SellerID=codeitems[which];
+							Toast.makeText(AddorderActivity.this, "选择的业务员id为：" + SellerID, Toast.LENGTH_SHORT).show();
+						}  
+					});  
+					builder.create().show();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+			super.handleMessage(msg);
+		}
+	};
+	@Override
+	public void onClick(View v) {
+		//进入添加详情jiemian
+		if(v.getId()==R.id.addorder_go_adddetails){
 			Intent intent=new Intent();
 			intent.setClass(AddorderActivity.this, AdddetailsActivity.class);
 			Bundle bundle = new Bundle();
 			intent.putExtras(bundle);//将Bundle添加到Intent,也可以在Bundle中添加相应数据传递给下个页面,例如：bundle.putString("abc", "bbb");
 			startActivityForResult(intent, 100);// 跳转并要求返回值，0代表请求值(可以随便写)
+		}//取消订单
+		else if(v.getId()==R.id.adddorder_img_cancel){
+			
+	       AddorderActivity.this.finish(); 
+	            
 		}
+		//提交订单
+		else if(v.getId()==R.id.adddorder_img_tick){
+			new AlertDialog.Builder(this).setTitle("确定提交订单吗？") 
+			.setIcon(android.R.drawable.ic_dialog_info) 
+			.setPositiveButton("确定", new DialogInterface.OnClickListener() { 	         
+				@Override 
+				public void onClick(DialogInterface dialog, int which) { 
+					// 点击“确认”后的操作 
+					JSONObject order=new JSONObject();
+					try {
+						order.put("OrderCode", ((TextView)findViewById(R.id.addorder_OrderCode)).
+								getText().toString().trim().equals(">")?"":((TextView)findViewById(R.id.addorder_OrderCode)).
+										getText().toString().trim());
+						order.put("CustID", CustID);
+						order.put("ContractCode", ((TextView)findViewById(R.id.addorder_ContractCode)).
+								getText().toString().trim().equals(">")?"":((TextView)findViewById(R.id.addorder_ContractCode)).
+										getText().toString().trim());
+						order.put("SellerID", SellerID);
+						order.put("SignAddr", ((TextView)findViewById(R.id.addorder_SignAddr)).
+								getText().toString().trim().equals(">")?"":((TextView)findViewById(R.id.addorder_SignAddr)).
+										getText().toString().trim());
+						order.put("SignDate", ((TextView)findViewById(R.id.addorder_SignDate)).
+								getText().toString().trim().equals(">")?"":((TextView)findViewById(R.id.addorder_SignDate)).
+										getText().toString().trim());
+						order.put("DeliveryAddr", ((TextView)findViewById(R.id.addorder_DeliveryAddr)).
+								getText().toString().trim().equals(">")?"":((TextView)findViewById(R.id.addorder_DeliveryAddr)).
+										getText().toString().trim());
+						order.put("DeliveryDate", ((TextView)findViewById(R.id.addorder_DeliveryDate)).
+								getText().toString().trim().equals(">")?"":((TextView)findViewById(R.id.addorder_DeliveryDate)).
+										getText().toString().trim());
+						order.put("DeliveryDate", ((TextView)findViewById(R.id.addorder_DeliveryDate)).
+								getText().toString().trim().equals(">")?"":((TextView)findViewById(R.id.addorder_DeliveryDate)).
+										getText().toString().trim());
+						order.put("Freight", ((TextView)findViewById(R.id.addorder_Freight)).
+								getText().toString().trim().equals(">")?"":((TextView)findViewById(R.id.addorder_Freight)).
+										getText().toString().trim());
+						order.put("TransportID", TransportID);
+						order.put("SettleID", SettleID);
+						order.put("ReceDays", ((TextView)findViewById(R.id.addorder_ReceDays)).
+								getText().toString().trim().equals(">")?"":((TextView)findViewById(R.id.addorder_ReceDays)).
+										getText().toString().trim());
+						order.put("DeptID", DeptID);
+						SimpleDateFormat    sDateFormat    =   new    SimpleDateFormat("yyyy-MM-dd");       
+						String    curDate    =    sDateFormat.format(new    java.util.Date()); 
+						order.put("WriteDate", curDate);
+						order.put("Se_OrderDt", orderdetails_jsonarray);
+
+						final String orderstr=order.toString();
+						//将数据提交给服务器
+						new Thread(){
+							public void run() {
+								String target=parenturl+"addorder";
+								HttpClient httpClient=new DefaultHttpClient();
+								HttpPost httpRequest=new HttpPost(target);
+
+								List<NameValuePair> params=new ArrayList<NameValuePair>();
+								params.add(new BasicNameValuePair("order",orderstr ));
+								try{
+									httpRequest.setEntity(new UrlEncodedFormEntity(params,"utf-8"));
+									HttpResponse httpResponse=httpClient.execute(httpRequest);
+									if(httpResponse.getStatusLine().getStatusCode()==HttpStatus.SC_OK){
+										//如果成功
+										Message message=Message.obtain();
+										message.what=1;
+										message.obj=EntityUtils.toString(httpResponse.getEntity(),"utf-8");
+										handler6.sendMessage(message);
+									}else{
+										//如果网络连接失败
+										Message message=Message.obtain();
+										message.what=0;
+										handler6.sendMessage(message);
+									}
+								}catch(Exception e){
+									e.printStackTrace();
+								}
+							};
+						}.start();
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+
+				} 
+			}) 
+			.setNegativeButton("取消", new DialogInterface.OnClickListener() { 
+				@Override 
+				public void onClick(DialogInterface dialog, int which) { 
+					// 点击“返回”后的操作,这里不设置没有任何操作 
+				} 
+			}).show(); 
+
+		}
+	}
+	//提交后的显示
+	private Handler handler6=new Handler(){
 		@Override
-		protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		  super.onActivityResult(requestCode, resultCode, data);
-		  if (requestCode ==100&& resultCode == Activity.RESULT_OK) {
-			  Bundle bundle = data.getExtras();
-		
-			  try {
+		public void handleMessage(Message msg) {
+			if(msg.what==0){
+				Toast.makeText(AddorderActivity.this,"网络连接失败！", Toast.LENGTH_LONG).show();
+			}else{
+				//
+				Toast.makeText(AddorderActivity.this,"提交成功！", Toast.LENGTH_LONG).show();
+				refresh();
+			}
+			super.handleMessage(msg);
+		}
+	};
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode ==100&& resultCode == Activity.RESULT_OK) {
+			Bundle bundle = data.getExtras();
+			try {
 				JSONObject jsonObject=new JSONObject();
 				jsonObject.put("GoodsID", bundle.getString("GoodsID"));
 				jsonObject.put("Number", bundle.getString("Number"));
@@ -536,7 +670,7 @@ public class AddorderActivity extends Activity implements OnTouchListener, andro
 				jsonObject.put("DtNotes", bundle.getString("DtNotes"));
 				jsonObject.put("PKGNum", bundle.getString("PKGNum"));
 				//将某个详情存入jsonarray中
-			//	orderdetails_jsonarray.put((Object)jsonObject);
+				orderdetails_jsonarray.put((Object)jsonObject);
 				//动态生成布局 显示新增详情
 				LinearLayout linearLayout=new LinearLayout(AddorderActivity.this);
 				linearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -562,11 +696,17 @@ public class AddorderActivity extends Activity implements OnTouchListener, andro
 				linearLayout.addView(textView2);
 				((LinearLayout)findViewById(R.id.addorder_scroll_child_linear)).addView(linearLayout);
 				Toast.makeText(AddorderActivity.this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
-			  } catch (JSONException e) {
-				  Toast.makeText(AddorderActivity.this, "报错啦啦", Toast.LENGTH_SHORT).show();
+			} catch (JSONException e) {
+				Toast.makeText(AddorderActivity.this, "报错啦啦", Toast.LENGTH_SHORT).show();
 			}
-//			 Toast.makeText(AddorderActivity.this, bundle.toString(), Toast.LENGTH_SHORT).show();
-		    
-		  }
+			//			 Toast.makeText(AddorderActivity.this, bundle.toString(), Toast.LENGTH_SHORT).show();
+
 		}
+	}
+	//刷新界面
+	private void refresh() {  
+		finish();  
+		Intent intent = new Intent(AddorderActivity.this, AddorderActivity.class);  
+		startActivity(intent);  
+	} 
 }

@@ -33,7 +33,7 @@ public class HomeActivity extends ActivityGroup{
 				.setContent(new Intent(this,ShowoderActivity.class)));
 		tabhoat.addTab(tabhoat.newTabSpec("addorder")
 				.setIndicator(tab2)
-				.setContent(new Intent(this,AddorderActivity.class)));
+				.setContent(new Intent(this,AddActivity.class)));
 		tabhoat.addTab(tabhoat.newTabSpec("user")
 				.setIndicator(tab3)
 				.setContent(new Intent(this,UserActivity.class)));
