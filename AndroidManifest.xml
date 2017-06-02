@@ -31,6 +31,7 @@
             	  android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".ShowoderActivity"></activity>
         <activity android:name=".OrderdetailsActivity"></activity>
+        <activity android:name=".OrderdetailsActivity1"></activity>
         <activity android:name=".AddActivity"></activity>
         <activity android:name=".AddorderActivity"></activity>
         <activity android:name=".AdddetailsActivity"></activity>

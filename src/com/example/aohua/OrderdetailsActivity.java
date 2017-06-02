@@ -41,7 +41,7 @@ public class OrderdetailsActivity extends Activity{
 		String orderCode=intent.getStringExtra("orderCode");		
 		
 		//给返回上一层添加点击事件
-		orderdetails_back=(ImageView) findViewById(R.id.orderdetails_back);
+		orderdetails_back=(ImageView) findViewById(R.id.orderdetails_img_cancel);
 		orderdetails_back.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
@@ -97,19 +97,19 @@ public class OrderdetailsActivity extends Activity{
 		
 		//测试数据(产品相关)
 		//为明细生成假数据
-		ArrayList<Se_OrderDt> orderdtlist=new ArrayList<Se_OrderDt>();
-		Se_OrderDt se_orderDt=new Se_OrderDt();
-		se_orderDt.setNumber(6.0);
-		se_orderDt.setGoodsName("电灯泡");
-		se_orderDt.setMoney(2344.0);
-		for(int i=0;i<5;i++){
-			orderdtlist.add(se_orderDt);
-		}
-		GoodsListViewAdapter goodsListViewAdapter=new GoodsListViewAdapter(orderdtlist, this);
-		ListView listView=(ListView) findViewById(R.id.orderdetail_goodslist);
-		listView.setDivider(null);
-		listView.setAdapter(goodsListViewAdapter);
-		setListViewHeightBasedOnChildren(listView);
+//		ArrayList<Se_OrderDt> orderdtlist=new ArrayList<Se_OrderDt>();
+//		Se_OrderDt se_orderDt=new Se_OrderDt();
+//		se_orderDt.setNumber(6.0);
+//		se_orderDt.setGoodsName("电灯泡");
+//		se_orderDt.setMoney(2344.0);
+//		for(int i=0;i<5;i++){
+//			orderdtlist.add(se_orderDt);
+//		}
+//		GoodsListViewAdapter goodsListViewAdapter=new GoodsListViewAdapter(orderdtlist, this);
+//		ListView listView=(ListView) findViewById(R.id.orderdetail_goodslist);
+//		listView.setDivider(null);
+//		listView.setAdapter(goodsListViewAdapter);
+//		setListViewHeightBasedOnChildren(listView);
 	}
 	
 	//这个是结局外面的scroll和里面的listview冲突问题（listview只显示一条数据）

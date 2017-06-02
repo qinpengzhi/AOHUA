@@ -7,38 +7,38 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="20dp"
-        android:id="@+id/activity_orderdetails_head"
+        android:id="@+id/activity_orderdetail1_head"
         android:background="@drawable/bottom_border">
         <ImageView android:layout_height="match_parent"
 	        android:layout_width="wrap_content"
 	        android:gravity="left"
-	        android:id="@+id/orderdetails_img_cancel"
+	        android:id="@+id/adddorder1_img_cancel"
 	        android:layout_weight="1"
 	        android:src="@drawable/ic_action_goleft"/>
         <TextView android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center" 
-            android:text="订单详情(销售订单)"
+            android:text="订单详情(采购订单)"
             android:layout_weight="1"
             android:textSize="20dp"
             android:textColor="@color/black"/>
-        <TextView android:layout_height="match_parent"
+        <ImageView android:layout_height="match_parent"
 	        android:layout_width="wrap_content"
 	        android:gravity="right"
 	        android:layout_weight="1"
-	        android:id="@+id/orderdetails_img_tick"
-	        />
+	         android:id="@+id/adddorder1_img_tick"
+	        android:src="@drawable/ic_action_tick"/>
     </LinearLayout>
 	<ScrollView
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"   
-	    android:layout_below="@+id/activity_orderdetails_head"
+	    android:layout_below="@+id/activity_orderdetail1_head"
 	 	>
-	 <LinearLayout android:layout_width="match_parent"
+      <LinearLayout android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:id="@+id/orderdetails_scroll_child_linear"
+	    android:id="@+id/orderdetail1_scroll_child_linear"
 	    android:orientation="vertical">
-	    <RelativeLayout android:layout_width="match_parent"
+	     <RelativeLayout android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="horizontal"
 	         android:paddingTop="6dp"
@@ -60,12 +60,13 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetails_WriteDate"/> 
+		        android:id="@+id/orderdetail1_WriteDate"/> 
 		</RelativeLayout>
 	    <View android:layout_height="1dp"
 	        android:layout_width="match_parent"
-	        android:background="@color/darkgray"/>
-	    <RelativeLayout android:layout_width="match_parent"
+	        android:background="@color/darkgray"/>    
+	   
+	     <RelativeLayout android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="horizontal"
 	         android:paddingTop="6dp"
@@ -87,11 +88,12 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetails_WritePersonName"/> 
+		        android:id="@+id/orderdetail1_WritePersonName"/> 
 		</RelativeLayout>
 	    <View android:layout_height="1dp"
 	        android:layout_width="match_parent"
-	        android:background="@color/darkgray"/>
+	        android:background="@color/darkgray"/>    
+	
 	     <RelativeLayout android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="horizontal"
@@ -105,7 +107,7 @@
 		        android:layout_alignParentLeft="true"
 		        android:gravity="left"
 		        android:textColor="@color/black"
-		        android:text="订单单号"/>
+		        android:text="采购单号"/>
 	     	 <TextView  android:layout_width="wrap_content"
 		        android:layout_height="match_parent"
 		        android:layout_marginLeft="70dp"
@@ -114,7 +116,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetails_OrderCode"/> 
+		        android:id="@+id/orderdetail1_PurOrderCode"/> 
 		</RelativeLayout>
 	    <View android:layout_height="1dp"
 	        android:layout_width="match_parent"
@@ -132,7 +134,7 @@
 		        android:layout_alignParentLeft="true"
 		        android:gravity="left"
 		        android:textColor="@color/black"
-		        android:text="客戶"/>
+		        android:text="供应商"/>
 	     	 <TextView  android:layout_width="wrap_content"
 		        android:layout_height="match_parent"
 		        android:layout_marginLeft="70dp"
@@ -141,7 +143,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetails_CustName"/> 
+		        android:id="@+id/orderdetail1_SupplierName"/> 
 		</RelativeLayout>
 	    <View android:layout_height="1dp"
 	        android:layout_width="match_parent"
@@ -159,7 +161,7 @@
 		        android:layout_alignParentLeft="true"
 		        android:gravity="left"
 		        android:textColor="@color/black"
-		        android:text="交货日期"/>
+		        android:text="到货日期"/>
 	     	 <TextView  android:layout_width="wrap_content"
 		        android:layout_height="match_parent"
 		        android:layout_marginLeft="70dp"
@@ -168,7 +170,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetails_DeliveryDate"/> 
+		        android:id="@+id/orderdetail1_AogDate"/> 
 		</RelativeLayout>
 	    <View android:layout_height="1dp"
 	        android:layout_width="match_parent"
@@ -196,36 +198,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetails_SignDate"/> 
-		</RelativeLayout>
-	    
-	    <View android:layout_height="1dp"
-	        android:layout_width="match_parent"
-	        android:background="@color/darkgray"/> 
-	    
-	     <RelativeLayout android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal"
-	         android:paddingTop="6dp"
-	         android:paddingLeft="20dp"
-	         android:paddingRight="20dp"
-	        android:paddingBottom="6dp">	    
-	        <TextView android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
-		        android:textSize="20dp"
-		        android:layout_alignParentLeft="true"
-		        android:gravity="left"
-		        android:textColor="@color/black"
-		        android:text="所属部门"/>
-	     	 <TextView  android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
-		        android:layout_marginLeft="70dp"
-		        android:textSize="20dp"
-		        android:layout_alignParentRight="true"
-		        android:layout_gravity="right"
-		        android:gravity="right"
-		        android:text=""
-		        android:id="@+id/orderdetails_DeptName"/> 
+		        android:id="@+id/orderdetail1_SignDate"/> 
 		</RelativeLayout>
 		 
 	    <View android:layout_height="1dp"
@@ -254,36 +227,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetails_DeliveryAddr"/> 
-		</RelativeLayout>
-	    
-	    <View android:layout_height="1dp"
-	        android:layout_width="match_parent"
-	        android:background="@color/darkgray"/> 
-	        
-	   <RelativeLayout android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal"
-	         android:paddingTop="6dp"
-	         android:paddingLeft="20dp"
-	         android:paddingRight="20dp"
-	        android:paddingBottom="6dp">	    
-	        <TextView android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
-		        android:textSize="20dp"
-		        android:layout_alignParentLeft="true"
-		        android:gravity="left"
-		        android:textColor="@color/black"
-		        android:text="运输方式"/>
-	     	 <TextView  android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
-		        android:layout_marginLeft="70dp"
-		        android:textSize="20dp"
-		        android:layout_alignParentRight="true"
-		        android:layout_gravity="right"
-		        android:gravity="right"
-		        android:text=""
-		        android:id="@+id/orderdetails_TransportName"/> 
+		        android:id="@+id/orderdetail1_DeliveryAddr"/> 
 		</RelativeLayout>
 	    
 	    <View android:layout_height="1dp"
@@ -312,13 +256,13 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetails_SettleName"/> 
+		        android:id="@+id/orderdetail1_SettleName"/> 
 		</RelativeLayout>
 		
-	    <View android:layout_height="1dp"
+	     <View android:layout_height="1dp"
 	        android:layout_width="match_parent"
 	        android:background="@color/darkgray"/> 
-	        
+	    
 	    <RelativeLayout android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="horizontal"
@@ -332,7 +276,7 @@
 		        android:layout_alignParentLeft="true"
 		        android:gravity="left"
 		        android:textColor="@color/black"
-		        android:text="运输费用"/>
+		        android:text="付款期（天）"/>
 	     	 <TextView  android:layout_width="wrap_content"
 		        android:layout_height="match_parent"
 		        android:layout_marginLeft="70dp"
@@ -341,7 +285,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetails_Freight"/> 
+		        android:id="@+id/orderdetail1_PayDays"/> 
 		</RelativeLayout>
 	    
 	    <View android:layout_height="1dp"
@@ -370,7 +314,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetails_SignAddr"/> 
+		        android:id="@+id/orderdetail1_SignAddr"/> 
 		</RelativeLayout>
 		
 	    <View android:layout_height="1dp"
@@ -399,36 +343,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetails_ContractCode"/> 
-		</RelativeLayout>
-		
-	    <View android:layout_height="1dp"
-	        android:layout_width="match_parent"
-	        android:background="@color/darkgray"/> 
-	    
-	    <RelativeLayout android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="horizontal"
-	         android:paddingTop="6dp"
-	         android:paddingLeft="20dp"
-	         android:paddingRight="20dp"
-	        android:paddingBottom="6dp">	    
-	        <TextView android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
-		        android:textSize="20dp"
-		        android:layout_alignParentLeft="true"
-		        android:gravity="left"
-		        android:textColor="@color/black"
-		        android:text="收款期（天）"/>
-	     	 <TextView  android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
-		        android:layout_marginLeft="70dp"
-		        android:textSize="20dp"
-		        android:layout_alignParentRight="true"
-		        android:layout_gravity="right"
-		        android:gravity="right"
-		        android:text=""
-		        android:id="@+id/orderdetails_ReceDays"/> 
+		        android:id="@+id/orderdetail1_ContractCode"/> 
 		</RelativeLayout>
 		
 	    <View android:layout_height="1dp"
@@ -448,7 +363,7 @@
 		        android:layout_alignParentLeft="true"
 		        android:gravity="left"
 		        android:textColor="@color/black"
-		        android:text="业务员"/>
+		        android:text="采购员"/>
 	     	 <TextView  android:layout_width="wrap_content"
 		        android:layout_height="match_parent"
 		        android:layout_marginLeft="70dp"
@@ -457,13 +372,10 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetails_SellerName"/> 
+		        android:id="@+id/orderdetail1_BuyerName"/> 
 		</RelativeLayout>
-		
-	    <!--  <View android:layout_height="15dp"
-	        android:layout_width="match_parent"
-	        android:background="@color/darkgray"/>  -->
-	      <TextView android:id="@+id/orderdetails_go_adddetails"
+
+	      <TextView android:id="@+id/orderdetail1_go_adddetails"
 	          android:layout_width="match_parent"
 	          android:layout_height="match_parent"
 	          android:text="订单明细"
@@ -473,25 +385,7 @@
 	          android:textSize="20dp"
 	          android:gravity="center"
 	          />
-	     <!--  <LinearLayout android:layout_width="match_parent"
-	          android:layout_height="wrap_content"
-	          android:orientation="vertical">
-	      <View android:layout_height="1dp"
-	        android:layout_width="match_parent"
-	        android:background="@color/darkgray"/>
-	      <TextView  android:paddingLeft="20dp"
-	           android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
-		        android:textSize="20dp"
-		        android:text="XXXXXXXXX"
-	           android:textColor="@color/black"/>
-	       <TextView  android:paddingLeft="20dp"
-	           android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
-		        android:textSize="12dp"
-		        android:text="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-	           	/>
-	      </LinearLayout>  -->
+	
 	</LinearLayout>
 	</ScrollView>     
 
