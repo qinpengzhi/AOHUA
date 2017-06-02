@@ -415,6 +415,7 @@ public class AddorderActivity1 extends AddActivity implements OnTouchListener{
 													getText().toString().trim().equals(">")?"":((TextView)findViewById(R.id.addorder1_PurOrderCode)).
 															getText().toString().trim());
 											order.put("BuyerID", BuyerID);
+											order.put("SupplierID", SupplierID);
 											order.put("ContractCode", ((TextView)findViewById(R.id.addorder1_ContractCode)).
 													getText().toString().trim().equals(">")?"":((TextView)findViewById(R.id.addorder1_ContractCode)).
 															getText().toString().trim());
