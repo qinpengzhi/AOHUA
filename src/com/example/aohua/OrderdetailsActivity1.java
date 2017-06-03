@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -44,12 +45,16 @@ public class OrderdetailsActivity1 extends AddActivity{
 	private TextView orderdetails1_PayDays;
 	private TextView orderdetails1_SupplierID;
 	private ImageView orderdetails1_back;
+	private String detailsorderid;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_orderdetails1);
 		Intent intent=getIntent();
 		final String orderid=intent.getStringExtra("orderid");
+		detailsorderid=intent.getStringExtra("orderid");
+		findViewById(R.id.orderdetails1_state3).setOnClickListener(this);
+		findViewById(R.id.orderdetails1_state4).setOnClickListener(this);
 		//从服务器端获取订单数据
 		new Thread(){
 			public void run() {
@@ -216,4 +221,87 @@ public class OrderdetailsActivity1 extends AddActivity{
 			super.handleMessage(msg);
 		}
 	};
+	//提交更新结果成功与否
+		private Handler handler3=new Handler(){
+			@Override
+			public void handleMessage(Message msg) {
+				if(msg.what==0){
+					Toast.makeText(OrderdetailsActivity1.this,"审核失败！", Toast.LENGTH_LONG).show();
+				}else{
+					Toast.makeText(OrderdetailsActivity1.this,"审核成功！", Toast.LENGTH_LONG).show();
+				}
+				super.handleMessage(msg);
+			}
+		};
+		@Override
+		public void onClick(View v) {
+			if(v.getId()==R.id.orderdetails1_state3){
+				//如果同意
+				new Thread(){
+					@SuppressWarnings("deprecation")
+					public void run() {
+						String target=parenturl+"updatepu_purorder";
+						HttpClient httpClient=new DefaultHttpClient();
+						HttpPost httpRequest=new HttpPost(target);
+
+						List<NameValuePair> params=new ArrayList<NameValuePair>();
+						params.add(new BasicNameValuePair("orderid",detailsorderid ));
+						params.add(new BasicNameValuePair("state",3+"" ));
+						params.add(new BasicNameValuePair("AuditOpinion",((EditText)findViewById(R.id.orderdetails1_AuditOpinion)).getText().toString()));
+						try{
+							httpRequest.setEntity(new UrlEncodedFormEntity(params,"utf-8"));
+							HttpResponse httpResponse=httpClient.execute(httpRequest);
+							if(httpResponse.getStatusLine().getStatusCode()==HttpStatus.SC_OK){
+								//如果成功
+								Message message=Message.obtain();
+								message.what=1;
+								handler3.sendMessage(message);
+							}else{
+								//如果网络连接失败
+								Message message=Message.obtain();
+								message.what=0;
+								handler3.sendMessage(message);
+							}
+						}catch(Exception e){
+							e.printStackTrace();
+						}
+					};
+				}.start();
+
+			}else if(v.getId()==R.id.orderdetails1_state4){
+				//如果不同意
+				//如果同意
+				new Thread(){
+					@SuppressWarnings("deprecation")
+					public void run() {
+						String target=parenturl+"updatepu_purorder";
+						HttpClient httpClient=new DefaultHttpClient();
+						HttpPost httpRequest=new HttpPost(target);
+
+						List<NameValuePair> params=new ArrayList<NameValuePair>();
+						params.add(new BasicNameValuePair("orderid",detailsorderid ));
+						params.add(new BasicNameValuePair("state",4+"" ));
+						params.add(new BasicNameValuePair("AuditOpinion",((EditText)findViewById(R.id.orderdetails1_AuditOpinion)).getText().toString()));
+						try{
+							httpRequest.setEntity(new UrlEncodedFormEntity(params,"utf-8"));
+							HttpResponse httpResponse=httpClient.execute(httpRequest);
+							if(httpResponse.getStatusLine().getStatusCode()==HttpStatus.SC_OK){
+								//如果成功
+								Message message=Message.obtain();
+								message.what=1;
+								handler3.sendMessage(message);
+							}else{
+								//如果网络连接失败
+								Message message=Message.obtain();
+								message.what=0;
+								handler3.sendMessage(message);
+							}
+						}catch(Exception e){
+							e.printStackTrace();
+						}
+					};
+				}.start();
+			}
+
+		}
 }
