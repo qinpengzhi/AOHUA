@@ -695,7 +695,6 @@ public class AddorderActivity extends Activity implements OnTouchListener, andro
 				textView2.setPadding(20, 0, 0, 0);
 				linearLayout.addView(textView2);
 				((LinearLayout)findViewById(R.id.addorder_scroll_child_linear)).addView(linearLayout);
-				Toast.makeText(AddorderActivity.this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
 			} catch (JSONException e) {
 				Toast.makeText(AddorderActivity.this, "±®¥Ì¿≤¿≤", Toast.LENGTH_SHORT).show();
 			}

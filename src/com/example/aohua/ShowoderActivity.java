@@ -199,7 +199,7 @@ public class ShowoderActivity extends Activity implements OnItemClickListener{
 			long id) {
 		if(order_type==0){
 			//进入销售订单详情页面
-			int orderid=Integer.parseInt(((TextView)view.findViewById(R.id.order_list_id)).getText().toString().trim());
+			String orderid=((TextView)view.findViewById(R.id.order_list_id)).getText().toString().trim();
 			Intent intent=new Intent();  
             intent.setClass(ShowoderActivity.this, OrderdetailsActivity.class);
             intent.putExtra("orderid", orderid);//给intent添加额外数据 
