@@ -57,7 +57,10 @@ public class OrderListViewAdapter extends BaseAdapter{
 			if(order.getState()<=1){
 				order_list_state.setText("待审核");
 			}else if(order.getState()==3){
-				order_list_state.setText("已审核");
+				order_list_state.setText("已生效");
+				order_list_state.setTextColor(Color.RED);
+			}else if(order.getState()==4){
+				order_list_state.setText("已作废");
 				order_list_state.setTextColor(Color.RED);
 			}
 		}

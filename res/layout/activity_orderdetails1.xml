@@ -7,12 +7,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="20dp"
-        android:id="@+id/activity_orderdetail1_head"
+        android:id="@+id/activity_orderdetails1_head"
         android:background="@drawable/bottom_border">
         <ImageView android:layout_height="match_parent"
 	        android:layout_width="wrap_content"
 	        android:gravity="left"
-	        android:id="@+id/adddorder1_img_cancel"
+	        android:id="@+id/orderdetails1_img_cancel"
 	        android:layout_weight="1"
 	        android:src="@drawable/ic_action_goleft"/>
         <TextView android:layout_width="wrap_content"
@@ -22,21 +22,20 @@
             android:layout_weight="1"
             android:textSize="20dp"
             android:textColor="@color/black"/>
-        <ImageView android:layout_height="match_parent"
+        <TextView android:layout_height="match_parent"
 	        android:layout_width="wrap_content"
 	        android:gravity="right"
 	        android:layout_weight="1"
-	         android:id="@+id/adddorder1_img_tick"
-	        android:src="@drawable/ic_action_tick"/>
+	         android:id="@+id/orderdetails1_img_tick"/>
     </LinearLayout>
 	<ScrollView
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"   
-	    android:layout_below="@+id/activity_orderdetail1_head"
+	    android:layout_below="@+id/activity_orderdetails1_head"
 	 	>
       <LinearLayout android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:id="@+id/orderdetail1_scroll_child_linear"
+	    android:id="@+id/orderdetails1_scroll_child_linear"
 	    android:orientation="vertical">
 	     <RelativeLayout android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
@@ -60,7 +59,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetail1_WriteDate"/> 
+		        android:id="@+id/orderdetails1_WriteDate"/> 
 		</RelativeLayout>
 	    <View android:layout_height="1dp"
 	        android:layout_width="match_parent"
@@ -88,7 +87,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetail1_WritePersonName"/> 
+		        android:id="@+id/orderdetails1_WritePersonName"/> 
 		</RelativeLayout>
 	    <View android:layout_height="1dp"
 	        android:layout_width="match_parent"
@@ -116,7 +115,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetail1_PurOrderCode"/> 
+		        android:id="@+id/orderdetails1_PurOrderCode"/> 
 		</RelativeLayout>
 	    <View android:layout_height="1dp"
 	        android:layout_width="match_parent"
@@ -143,7 +142,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetail1_SupplierName"/> 
+		        android:id="@+id/orderdetails1_SupplierName"/> 
 		</RelativeLayout>
 	    <View android:layout_height="1dp"
 	        android:layout_width="match_parent"
@@ -170,7 +169,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetail1_AogDate"/> 
+		        android:id="@+id/orderdetails1_AogDate"/> 
 		</RelativeLayout>
 	    <View android:layout_height="1dp"
 	        android:layout_width="match_parent"
@@ -198,7 +197,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetail1_SignDate"/> 
+		        android:id="@+id/orderdetails1_SignDate"/> 
 		</RelativeLayout>
 		 
 	    <View android:layout_height="1dp"
@@ -227,7 +226,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetail1_DeliveryAddr"/> 
+		        android:id="@+id/orderdetails1_DeliveryAddr"/> 
 		</RelativeLayout>
 	    
 	    <View android:layout_height="1dp"
@@ -256,7 +255,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetail1_SettleName"/> 
+		        android:id="@+id/orderdetails1_SettleName"/> 
 		</RelativeLayout>
 		
 	     <View android:layout_height="1dp"
@@ -285,7 +284,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetail1_PayDays"/> 
+		        android:id="@+id/orderdetails1_PayDays"/> 
 		</RelativeLayout>
 	    
 	    <View android:layout_height="1dp"
@@ -314,7 +313,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetail1_SignAddr"/> 
+		        android:id="@+id/orderdetails1_SignAddr"/> 
 		</RelativeLayout>
 		
 	    <View android:layout_height="1dp"
@@ -343,7 +342,7 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetail1_ContractCode"/> 
+		        android:id="@+id/orderdetails1_ContractCode"/> 
 		</RelativeLayout>
 		
 	    <View android:layout_height="1dp"
@@ -372,10 +371,10 @@
 		        android:layout_gravity="right"
 		        android:gravity="right"
 		        android:text=""
-		        android:id="@+id/orderdetail1_BuyerName"/> 
+		        android:id="@+id/orderdetails1_BuyerName"/> 
 		</RelativeLayout>
 
-	      <TextView android:id="@+id/orderdetail1_go_adddetails"
+	      <TextView android:id="@+id/orderdetails1_go_adddetails"
 	          android:layout_width="match_parent"
 	          android:layout_height="match_parent"
 	          android:text="订单明细"
