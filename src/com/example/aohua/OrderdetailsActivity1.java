@@ -16,6 +16,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.aohua.R.color;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -175,7 +177,9 @@ public class OrderdetailsActivity1 extends AddActivity{
 					SharedPreferences sharedPreferences=getSharedPreferences("user", MODE_PRIVATE);
 					if(sharedPreferences.getString("examine", "").equals("0")){
 						//如果没有权限就禁止审核
+						findViewById(R.id.orderdetails1_state3).setBackgroundColor(getResources().getColor(R.color.darkgray));
 						findViewById(R.id.orderdetails1_state3).setEnabled(false);
+						findViewById(R.id.orderdetails1_state4).setBackgroundColor(getResources().getColor(R.color.darkgray));
 						findViewById(R.id.orderdetails1_state4).setEnabled(false);
 					}
 				} catch (JSONException e) {

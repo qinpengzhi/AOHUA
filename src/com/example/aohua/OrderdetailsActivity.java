@@ -196,7 +196,9 @@ public class OrderdetailsActivity extends Activity implements OnClickListener{
 					SharedPreferences sharedPreferences=getSharedPreferences("user", MODE_PRIVATE);
 					if(sharedPreferences.getString("examine", "").equals("0")){
 						//如果没有权限就禁止审核
+						findViewById(R.id.orderdetails_state3).setBackgroundColor(getResources().getColor(R.color.darkgray));
 						findViewById(R.id.orderdetails_state3).setEnabled(false);
+						findViewById(R.id.orderdetails_state4).setBackgroundColor(getResources().getColor(R.color.darkgray));
 						findViewById(R.id.orderdetails_state4).setEnabled(false);
 					}
 				} catch (JSONException e) {
