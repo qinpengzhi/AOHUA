@@ -34,7 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class OrderdetailsActivity1 extends AddActivity{
-	private String parenturl="http://10.132.23.147:8080/AOHUAServlet/"; 
+	private String parenturl="http://120.25.73.114:8080/AOHUAServlet/"; 
 	private TextView orderdetails1_WriteDate;
 	private TextView orderdetails1_WritePersonName;
 	private TextView orderdetails1_PurOrderCode;

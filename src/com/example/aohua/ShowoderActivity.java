@@ -39,7 +39,7 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ShowoderActivity extends Activity implements OnItemClickListener{
-	private String parenturl="http://10.132.23.147:8080/AOHUAServlet/";
+	private String parenturl="http://120.25.73.114:8080/AOHUAServlet/";
 	private int order_type=0;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

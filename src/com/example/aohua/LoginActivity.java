@@ -91,7 +91,7 @@ public class LoginActivity extends Activity {
 					public void run() {
 						String username=((EditText)(findViewById(R.id.login_id))).getText().toString();
 						String password=((EditText)(findViewById(R.id.login_password))).getText().toString();
-						String target="http://10.132.23.147:8080/AOHUAServlet/login";
+						String target="http://120.25.73.114:8080/AOHUAServlet/login";
 						HttpClient httpClient=new DefaultHttpClient();
 						HttpPost httpRequest=new HttpPost(target);
 						List<NameValuePair> params=new ArrayList<NameValuePair>();

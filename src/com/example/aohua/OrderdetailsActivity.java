@@ -55,7 +55,7 @@ public class OrderdetailsActivity extends Activity implements OnClickListener{
 	private TextView orderdetails_ReceDays;
 	private TextView orderdetails_SellerName;
 	private ImageView orderdetails_back;
-	private String parenturl="http://10.132.23.147:8080/AOHUAServlet/"; 
+	private String parenturl="http://120.25.73.114:8080/AOHUAServlet/"; 
 	private String detailsorderid;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

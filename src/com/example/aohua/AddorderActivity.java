@@ -46,7 +46,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class AddorderActivity extends Activity implements OnTouchListener, android.view.View.OnClickListener{
-	private String parenturl="http://10.132.23.147:8080/AOHUAServlet/";
+	private String parenturl="http://120.25.73.114:8080/AOHUAServlet/";
 	private Calendar calendar;//用来装日期的
 	private Integer DeptID;//这个是用来存储部门的id的
 	private Integer TransportID;//这个是用来存储运输方式id的

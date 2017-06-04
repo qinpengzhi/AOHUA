@@ -40,7 +40,7 @@ import android.widget.Toast;
  * 这个是添加order的详情界面
  */
 public class AdddetailsActivity extends Activity implements OnTouchListener, android.view.View.OnClickListener{
-	private String parenturl="http://10.132.23.147:8080/AOHUAServlet/";
+	private String parenturl="http://120.25.73.114:8080/AOHUAServlet/";
 	private Calendar calendar;//用来装日期的
 	private AlertDialog alert;
 	private DatePickerDialog dialog;

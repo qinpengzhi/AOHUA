@@ -42,7 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class AddorderActivity1 extends AddActivity implements OnTouchListener{
-	private String parenturl="http://10.132.23.147:8080/AOHUAServlet/";
+	private String parenturl="http://120.25.73.114:8080/AOHUAServlet/";
 	private Calendar calendar;//用来装日期的
 	private AlertDialog alert;
 	private DatePickerDialog dialog;
