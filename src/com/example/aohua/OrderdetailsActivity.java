@@ -22,6 +22,7 @@ import com.aohua.model.Se_OrderDt;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -133,40 +134,6 @@ public class OrderdetailsActivity extends Activity implements OnClickListener{
 				finish();				
 			}
 		});
-		//测试数据
-		//		Se_Order  se_order=new Se_Order();
-		//		se_order.setOrderCode(orderid);
-		//		se_order.setCustName("XXXXXX客户");
-		//		se_order.setDeliveryDate("2017-5-20");//交货日期
-		//		se_order.setWriteDate("2017-5-17");//制单日期
-		//		se_order.setDeliveryAddr("杭州XXX街");//交货地址
-		//		se_order.setTransportName("自提");//运输方式
-		//		se_order.setSettleName("现汇");//结算方式
-		//		se_order.setFreight(20.78);//运输费用
-		//		se_order.setSignAddr("XXXX小巷");//签订地址
-		//		se_order.setDeptName("销售部");
-		//		se_order.setSignDate("2017-4-20");//签订日期
-		//		se_order.setContractCode("20170220");//合同号
-		//		se_order.setReceDays(30);
-		//		se_order.setSellerName("大灰狼");
-		//		
-
-
-		//测试数据(产品相关)
-		//为明细生成假数据
-		//		ArrayList<Se_OrderDt> orderdtlist=new ArrayList<Se_OrderDt>();
-		//		Se_OrderDt se_orderDt=new Se_OrderDt();
-		//		se_orderDt.setNumber(6.0);
-		//		se_orderDt.setGoodsName("电灯泡");
-		//		se_orderDt.setMoney(2344.0);
-		//		for(int i=0;i<5;i++){
-		//			orderdtlist.add(se_orderDt);
-		//		}
-		//		GoodsListViewAdapter goodsListViewAdapter=new GoodsListViewAdapter(orderdtlist, this);
-		//		ListView listView=(ListView) findViewById(R.id.orderdetail_goodslist);
-		//		listView.setDivider(null);
-		//		listView.setAdapter(goodsListViewAdapter);
-		//		setListViewHeightBasedOnChildren(listView);
 	}
 	//对传过来的数据进行处理展示在前台界面上
 	private Handler handler1=new Handler(){
@@ -224,6 +191,14 @@ public class OrderdetailsActivity extends Activity implements OnClickListener{
 						orderdetails_ReceDays.setText(temp.get("ReceDays")+"");
 					if(!temp.get("SellerName").equals(null))
 						orderdetails_SellerName.setText((CharSequence) temp.get("SellerName"));	
+					if(!temp.get("AuditOpinion").equals(null))
+						((EditText)findViewById(R.id.orderdetails_AuditOpinion)).setText((CharSequence) temp.get("AuditOpinion"));
+					SharedPreferences sharedPreferences=getSharedPreferences("user", MODE_PRIVATE);
+					if(sharedPreferences.getString("examine", "").equals("0")){
+						//如果没有权限就禁止审核
+						findViewById(R.id.orderdetails_state3).setEnabled(false);
+						findViewById(R.id.orderdetails_state4).setEnabled(false);
+					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -5,9 +5,12 @@ import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,6 +24,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -81,7 +85,12 @@ public class ShowoderActivity extends Activity implements OnItemClickListener{
 					String target=parenturl+"getse_orderlist";
 					HttpClient httpClient=new DefaultHttpClient();
 					HttpPost httpRequest=new HttpPost(target);
+					List<NameValuePair> params=new ArrayList<NameValuePair>();
+					SharedPreferences sharedPreferences=getSharedPreferences("user", MODE_PRIVATE);
+					params.add(new BasicNameValuePair("userid",sharedPreferences.getString("userid", "")));
+					params.add(new BasicNameValuePair("examine",sharedPreferences.getString("examine", "")));
 					try{
+						httpRequest.setEntity(new UrlEncodedFormEntity(params,"utf-8"));
 						HttpResponse httpResponse=httpClient.execute(httpRequest);
 						if(httpResponse.getStatusLine().getStatusCode()==HttpStatus.SC_OK){
 							//如果成功
@@ -107,7 +116,13 @@ public class ShowoderActivity extends Activity implements OnItemClickListener{
 					String target=parenturl+"getpu_purorderlist";
 					HttpClient httpClient=new DefaultHttpClient();
 					HttpPost httpRequest=new HttpPost(target);
+					
+					List<NameValuePair> params=new ArrayList<NameValuePair>();
+					SharedPreferences sharedPreferences=getSharedPreferences("user", MODE_PRIVATE);
+					params.add(new BasicNameValuePair("userid",sharedPreferences.getString("userid", "")));
+					params.add(new BasicNameValuePair("examine",sharedPreferences.getString("examine", "")));
 					try{
+						httpRequest.setEntity(new UrlEncodedFormEntity(params,"utf-8"));
 						HttpResponse httpResponse=httpClient.execute(httpRequest);
 						if(httpResponse.getStatusLine().getStatusCode()==HttpStatus.SC_OK){
 							//如果成功
@@ -144,7 +159,9 @@ public class ShowoderActivity extends Activity implements OnItemClickListener{
 						Order order=new Order();
 						order.setCode((String) temp.get("OrderCode"));
 						order.setId((Integer) temp.get("OrderID"));
-						order.setName((String) temp.get("CustName"));
+						if(!temp.get("CustName").equals(null))
+							order.setName((String) temp.get("CustName"));
+						else order.setName("");
 						order.setWriteDate((String) temp.get("WriteDate"));
 						order.setState((Integer) temp.get("State"));
 						orderList.add(order);
@@ -177,7 +194,9 @@ public class ShowoderActivity extends Activity implements OnItemClickListener{
 						Order order=new Order();
 						order.setCode((String) temp.get("PurOrderCode"));
 						order.setId((Integer) temp.get("PurOrderID"));
-						order.setName((String) temp.get("Name"));
+						if(!temp.get("Name").equals(null))
+							order.setName((String) temp.get("Name"));
+						else order.setName("");
 						order.setWriteDate((String) temp.get("WriteDate"));
 						order.setState((Integer) temp.get("State"));
 						orderList.add(order);

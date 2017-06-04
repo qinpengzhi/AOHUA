@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -169,6 +170,14 @@ public class OrderdetailsActivity1 extends AddActivity{
 						orderdetails1_PayDays.setText(temp.get("PayDays")+"");
 					if(!temp.get("SupplierName").equals(null))
 						orderdetails1_SupplierID.setText((CharSequence) temp.get("SupplierName"));	
+					if(!temp.get("AuditOpinion").equals(null))
+						((EditText)findViewById(R.id.orderdetails1_AuditOpinion)).setText((CharSequence) temp.get("AuditOpinion"));
+					SharedPreferences sharedPreferences=getSharedPreferences("user", MODE_PRIVATE);
+					if(sharedPreferences.getString("examine", "").equals("0")){
+						//如果没有权限就禁止审核
+						findViewById(R.id.orderdetails1_state3).setEnabled(false);
+						findViewById(R.id.orderdetails1_state4).setEnabled(false);
+					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

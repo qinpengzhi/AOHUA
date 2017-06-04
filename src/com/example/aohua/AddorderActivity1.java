@@ -22,6 +22,7 @@ import android.app.DatePickerDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.DialogInterface.OnClickListener;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
@@ -451,6 +452,8 @@ public class AddorderActivity1 extends AddActivity implements OnTouchListener{
 					
 													List<NameValuePair> params=new ArrayList<NameValuePair>();
 													params.add(new BasicNameValuePair("order",orderstr ));
+													SharedPreferences sharedPreferences=getSharedPreferences("user", MODE_PRIVATE);
+													params.add(new BasicNameValuePair("userid",sharedPreferences.getString("userid", "")));
 													try{
 														httpRequest.setEntity(new UrlEncodedFormEntity(params,"utf-8"));
 														HttpResponse httpResponse=httpClient.execute(httpRequest);

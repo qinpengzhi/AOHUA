@@ -22,6 +22,8 @@ import com.aohua.util.HttpUtil;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,6 +36,8 @@ import android.widget.Toast;
 //登录界面
 public class LoginActivity extends Activity {
 	private Button login_bt;
+	private SharedPreferences sharedPreferences;//本地保存sessionid
+	private Editor editor ;//针对sharedPerference的编辑
 	//对数据进行处理
 	private Handler handler=new Handler(){
 		@Override
@@ -47,6 +51,15 @@ public class LoginActivity extends Activity {
 						Toast.makeText(LoginActivity.this,"账户或者密码错误！", Toast.LENGTH_LONG).show();
 					}else{
 						//连接成功
+						//首先在本地保存数据
+						sharedPreferences =getSharedPreferences("user", MODE_PRIVATE);
+						editor=sharedPreferences.edit();
+						editor.putString("userid",json.get("userid")+"");
+						if(json.getBoolean("examine"))
+							editor.putString("examine",1+"");
+						else editor.putString("examine",0+"");
+						editor.putBoolean("login",true);
+						editor.commit();
 						Intent  intent=new Intent();
 						intent.setClass(LoginActivity.this, HomeActivity.class);
 						startActivity(intent);
@@ -62,6 +75,13 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+//		sharedPreferences =getSharedPreferences("user", MODE_PRIVATE);
+//		if(sharedPreferences.getBoolean("login", false)){
+//			Intent  intent=new Intent();
+//			intent.setClass(LoginActivity.this, HomeActivity.class);
+//			startActivity(intent);
+//			finish();
+//		}
 		login_bt=(Button) findViewById(R.id.login_bt);
 		//点击登录按钮的事件
 		login_bt.setOnClickListener(new OnClickListener() {		
